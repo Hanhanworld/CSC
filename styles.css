@@ -43,13 +43,10 @@ iframe {
     .sidebar {
         width: 100%;
         height: auto;
-        position: static;
+        position: fixed;
+        top: 0;
+        left: 0;
         transform: translateX(-100%);
-        display: block;
-    }
-
-    .sidebar-content {
-        display: block;
     }
 
     .sidebar-toggle {
