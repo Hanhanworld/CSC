@@ -41,12 +41,13 @@ iframe {
 
 @media (max-width: 768px) {
     .sidebar {
-        width: 100%;
-        height: auto;
+        width: 250px; /* Adjust as necessary */
+        height: 100%;
         position: fixed;
         top: 0;
-        left: 0;
+        left: -250px; /* Initially hidden */
         transform: translateX(-100%);
+        transition: transform 0.3s ease;
     }
 
     .sidebar-toggle {
