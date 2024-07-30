@@ -3,10 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item 1 Page 5</title>
+    <title>Event Listener Example</title>
+    <style>
+        .sidebar {
+            width: 250px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-toggle {
+            display: block;
+            background: #f4f4f4;
+            border: none;
+            font-size: 24px;
+            padding: 10px;
+            cursor: pointer;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .sidebar.show {
+            transform: translateX(0);
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+            height: 100vh;
+            overflow-y: auto;
+            transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                transform: translateX(-100%);
+            }
+            .content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Item 1 - Page 5</h1>
-    <p>This is the content of Item 1 Page 5.</p>
+    <button class="sidebar-toggle" aria-label="Toggle sidebar">&#9776;</button>
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <!-- Sidebar content here -->
+            <p>Sidebar content here.</p>
+        </div>
+    </div>
+    <div class="content">
+        <!-- Main content here -->
+        <p>Main content here.</p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggleButton = document.querySelector('.sidebar-toggle');
+            var sidebar = document.querySelector('.sidebar');
+            
+            // Event type
+            var eventType = 'click'; 
+            
+            // Event handler function
+            function toggleSidebar() {
+                sidebar.classList.toggle('show');
+            }
+
+            // Using addEventListener
+            toggleButton.addEventListener(eventType, toggleSidebar);
+        });
+    </script>
 </body>
 </html>
