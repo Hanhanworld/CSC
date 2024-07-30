@@ -9,11 +9,216 @@
             font-family: Arial, sans-serif;
             padding: 20px;
             text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .table-container {
+            margin: 10px;
+            border-collapse: collapse;
+            width: 45%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            flex: 1 1 4%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        th {
+            background-color: #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        tr {
+            background-color: #fff;
+            transition: background-color 0.2s;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        tr:first-child th {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        tr:last-child td {
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        h1 {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to Device Manuals</h1>
-    <p>Select an item from the sidebar to view pages and manuals.</p>
+    <h1>檢修紀錄簿</h1>
+    <p>檢修過程/設備操作手冊/維護手冊/MCC位置查詢</p>
+
+    <div class="container">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>維護單位</th>
+                        <th>分機</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>電修一</td>
+                        <td>#2682</td>
+                    </tr>
+                    <tr>
+                        <td>電修二</td>
+                        <td>#2444</td>
+                    </tr>
+                    <tr>
+                        <td>電修三</td>
+                        <td>#5647</td>
+                    </tr>
+                    <tr>
+                        <td>機修一</td>
+                        <td>#2682</td>
+                    </tr>
+                    <tr>
+                        <td>機修二</td>
+                        <td>#2444</td>
+                    </tr>
+                    <tr>
+                        <td>機修三</td>
+                        <td>#5647</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>操作單位</th>
+                        <th>分機</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>一二階煤製備控制室</td>
+                        <td>#2439</td>
+                    </tr>
+                    <tr>
+                        <td>三四階煤製備控制室</td>
+                        <td>#3102</td>
+                    </tr>
+                    <tr>
+                        <td>一二階焦爐值班室</td>
+                        <td>#####</td>
+                    </tr>
+                    <tr>
+                        <td>一二階焦爐控制室</td>
+                        <td>#####</td>
+                    </tr>
+                    <tr>
+                        <td>三四階焦爐值班室</td>
+                        <td>#####</td>
+                    </tr>
+                    <tr>
+                        <td>三四階焦爐控制室</td>
+                        <td>#####</td>
+                    </tr>
+                    <tr>
+                        <td>三四階CDQ控制室</td>
+                        <td>#####</td>
+                    </tr>
+                    <tr>
+                        <td>三四階CDQ值班室</td>
+                        <td>#####</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>外單位</th>
+                        <th>分機</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>W5供電中心</td>
+                        <td>#2244</td>
+                    </tr>
+                    <tr>
+                        <td>XXXXX值班室</td>
+                        <td>#####</td>
+                    </tr>
+                    <tr>
+                        <td>XXXX控制室</td>
+                        <td>#####</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>無線電號碼</th>
+                        <th>單位</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>一二階煤製備控制室</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>三四階煤製備控制室</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>一階焦爐</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>二階焦爐</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>電修一</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>三階焦爐</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>四階焦爐</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>電修二</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>三四階CDQ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
