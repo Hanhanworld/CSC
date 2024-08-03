@@ -42,6 +42,6 @@ tbody tr:nth-child(even) {
 }
 
 .highlight {
-    background-color: black !important;
-    color: white !important;
+    background-color: #FF5252 !important; /* Bright red background */
+    color: #000000 !important; /* Black text */
 }
