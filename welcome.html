@@ -9,8 +9,7 @@
             font-family: Arial, sans-serif;
             padding: 20px;
             text-align: center;
-            background-color: #1e1e1e;
-            color: #e0e0e0;
+            background-color: #f4f4f4;
         }
         .container {
             display: flex;
@@ -22,8 +21,8 @@
             border-collapse: collapse;
             width: 15%;
             max-width: 600px; /* Limiting max-width to avoid tables being too wide */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            background-color: #2b2b2b;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
             border-radius: 8px;
             overflow: hidden;
             flex: 1 1 auto; /* Adjusted flex property */
@@ -36,27 +35,53 @@
         th, td {
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #444444;
+            border-bottom: 1px solid #ddd;
         }
         th {
-            background-color: #3c3c3c;
+            background-color: #ff6666; /* Red */
             color: #ffffff;
             position: sticky;
             top: 0;
             z-index: 2;
         }
         tr {
-            background-color: #2b2b2b;
             transition: background-color 0.2s;
         }
         tr:hover {
-            background-color: #444444;
+            background-color: #e6e6e6;
         }
-        tbody tr:nth-child(odd) {
-            background-color: #2b2b2b;
+        tr:nth-child(odd) {
+            background-color: #ffcc99; /* Light Orange */
         }
-        tbody tr:nth-child(even) {
-            background-color: #1e1e1e;
+        tr:nth-child(even) {
+            background-color: #ff9966; /* Dark Orange */
+        }
+        tbody tr:nth-child(1) {
+            background-color: #ffccff; /* Light Pink */
+        }
+        tbody tr:nth-child(2) {
+            background-color: #ff99ff; /* Dark Pink */
+        }
+        tbody tr:nth-child(3) {
+            background-color: #cc99ff; /* Light Purple */
+        }
+        tbody tr:nth-child(4) {
+            background-color: #9999ff; /* Light Blue */
+        }
+        tbody tr:nth-child(5) {
+            background-color: #99ccff; /* Light Cyan */
+        }
+        tbody tr:nth-child(6) {
+            background-color: #99ffcc; /* Light Green */
+        }
+        tbody tr:nth-child(7) {
+            background-color: #99ff99; /* Light Lime */
+        }
+        tbody tr:nth-child(8) {
+            background-color: #ccff99; /* Light Yellow */
+        }
+        tbody tr:nth-child(9) {
+            background-color: #ffff99; /* Yellow */
         }
         tr:first-child th {
             border-top-left-radius: 8px;
@@ -68,10 +93,10 @@
         }
         h1 {
             margin-bottom: 20px;
-            color: #ffffff;
+            color: #333333;
         }
         p {
-            color: #ffffff;
+            color: #666666;
         }
 
         /* Media queries for responsive design */
