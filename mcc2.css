@@ -1,0 +1,62 @@
+/* 基本樣式 */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* 分頁按鈕樣式 */
+button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+/* 高亮顯示分頁按鈕樣式 */
+.highlighted-tab {
+    background-color: yellow;
+    color: black;
+}
+
+/* 分頁樣式 */
+.tab {
+    display: none;
+}
+
+/* 黑底白字樣式 */
+.black-background {
+    background-color: black;
+    color: white;
+}
+
+/* 搜尋框樣式 */
+input[type="text"] {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 表格樣式 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}

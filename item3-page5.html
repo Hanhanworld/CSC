@@ -4,175 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>設備列表</title>
-    <link rel="stylesheet" href="mcc.css">
+    <link rel="stylesheet" href="mcc2.css">
 </head>
 <body>
-    <input type="text" id="searchInput" placeholder="搜尋..." onkeyup="searchTable()">
-    <table id="equipmentTable">
-        <thead>
-            <tr>
-                <th>地點</th>
-                <th>設備名稱</th>
-                <th>MCC名稱</th>
-                <th>盤面位置</th>
-                <th>備註</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td rowspan="3">A號機電氣室</td>
-                <td>MCC-1</td>
-                <td>SWGR(4NF34)</td>
-                <td>1B</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>MCC-2</td>
-                <td>SWGR(4NF34)</td>
-                <td>1T</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>照明/電料插座</td>
-                <td>SWGR(4NF34)</td>
-                <td>3T</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td rowspan="22">A號機電氣室</td>
-                <td>混合站油壓驅動器(HYDRAULIC)</td>
-                <td>MCC1</td>
-                <td>11C</td>
-                <td>FFRC-502</td>
-            </tr>
-            <tr>
-                <td>混合站驅動閥(東)</td>
-                <td>MCC1</td>
-                <td>11D</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>混合站驅動閥(西)</td>
-                <td>MCC1</td>
-                <td>11E</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>BA煙囪油壓驅動器(HYDRAULIC)</td>
-                <td>MCC1</td>
-                <td>14D</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>BA COG油壓驅動器(HYDRAULIC)</td>
-                <td>MCC1</td>
-                <td>14C</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>BA MG油壓驅動器(HYDRAULIC)</td>
-                <td>MCC1</td>
-                <td>13C</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>BA集氣總管油壓驅動器(HYDRAULIC)</td>
-                <td>MCC1</td>
-                <td>13D</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>BA OFF TANK MAIN 電動閥</td>
-                <td>MCC1</td>
-                <td>12B</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>BA反轉熔油壓PUMP 4.1</td>
-                <td>MCC1</td>
-                <td>3B</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>BA反轉熔油壓PUMP 4.2</td>
-                <td>MCC1</td>
-                <td>4B</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>BA反轉熔油滑PUMP 1.1</td>
-                <td>MCC1</td>
-                <td>4E</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>BA反轉熔油滑PUMP 1.2</td>
-                <td>MCC1</td>
-                <td>14E</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>BA柴油PUMP</td>
-                <td>MCC1</td>
-                <td>4C</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>B1 SEAL POT沉水PUMP</td>
-                <td>MCC1</td>
-                <td>2D</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>A號機電氣因旁汞水PUMP</td>
-                <td>MCC1</td>
-                <td>14A</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>A號機濾油機</td>
-                <td>MCC1</td>
-                <td>2E</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>燃氣馬達閥控制盤總電源</td>
-                <td>MCC1</td>
-                <td>12C</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>一階出口高層氨水</td>
-                <td>MCC2</td>
-                <td>3A</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>二階高層氨水</td>
-                <td>MCC2</td>
-                <td>2C</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>二階高層氨水泵流水</td>
-                <td>MCC2</td>
-                <td>3D</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>空氣淨化機1</td>
-                <td>MCC1</td>
-                <td>3E</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>空氣淨化機2</td>
-                <td>MCC1</td>
-                <td>3E</td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
-    <script src="mcc.js"></script>
+    <button onclick="showTab('aFurnace')">A號爐</button>
+    <button onclick="showTab('ph12Furnace')">PH12煉焦爐</button>
+
+    <div id="aFurnace" class="tab">
+        <input type="text" id="searchInput" placeholder="搜尋...">
+        <button onclick="searchNext()">搜尋下一個</button>
+        <table id="equipmentTable">
+            <!-- 表格內容 -->
+            <thead>
+                <tr>
+                    <th>地點</th>
+                    <th>設備名稱</th>
+                    <th>MCC名稱</th>
+                    <th>盤面位置</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- A號爐的表格內容 -->
+                <tr>
+                    <td rowspan="3">A號機電氣室</td>
+                    <td>MCC-1</td>
+                    <td>SWGR(4NF34)</td>
+                    <td>1B</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>MCC-2</td>
+                    <td>SWGR(4NF34)</td>
+                    <td>1T</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>照明/電料插座</td>
+                    <td>SWGR(4NF34)</td>
+                    <td>3T</td>
+                    <td></td>
+                </tr>
+                <!-- 其他表格內容 -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="ph12Furnace" class="tab" style="display:none;">
+        <input type="text" id="searchInputPH12" placeholder="搜尋...">
+        <button onclick="searchNext()">搜尋下一個</button>
+        <table id="equipmentTablePH12">
+            <!-- 表格內容 -->
+            <thead>
+                <tr>
+                    <th>地點</th>
+                    <th>設備名稱</th>
+                    <th>MCC名稱</th>
+                    <th>盤面位置</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- PH12煉焦爐的表格內容 -->
+                <tr>
+                    <td rowspan="3">A號機電氣室</td>
+                    <td>MCC-1</td>
+                    <td>SWGR(4NF34)</td>
+                    <td>1B</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>MCcccccC-2</td>
+                    <td>SWGR(4NF34)</td>
+                    <td>1T</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>照明/cccc電料插座</td>
+                    <td>SWGR(4NF34)</td>
+                    <td>3T</td>
+                    <td></td>
+                </tr>
+                <!-- 這裡添加你的表格內容 -->
+            </tbody>
+
+        </table>
+    </div>
+
+    <script src="mcc2.js"></script>
 </body>
 </html>
