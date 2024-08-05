@@ -1,83 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        .highlight {
-            background-color: yellow;
-        }
-    </style>
-</head>
-<body>
-
-<input type="text" id="searchInput" placeholder="Search for equipment...">
-<button onclick="searchTable()">Search</button>
-
-<table id="equipmentTable">
-    <tr>
-        <th>Equipment</th>
-        <th>Details</th>
-    </tr>
-    <tr>
-        <td>Hammer</td>
-        <td>Tool</td>
-    </tr>
-    <tr>
-        <td>Wrench</td>
-        <td>Tool</td>
-    </tr>
-    <tr>
-        <td>Drill</td>
-        <td>Tool</td>
-    </tr>
-    <tr>
-        <td>Saw</td>
-        <td>Tool</td>
-    </tr>
-</table>
-
-<script>
-var currentIndex = 0;
+let currentIndex = -1;
 
 function searchTable() {
-    var input, filter, table, tr, td, i, j, txtValue;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("equipmentTable");
-    tr = table.getElementsByTagName("tr");
+    let input = document.getElementById("searchInput");
+    let filter = input.value.toUpperCase();
+    let table = document.getElementById("equipmentTable");
+    let tr = table.getElementsByTagName("tr");
 
-    // Remove previous highlights
-    for (i = 1; i < tr.length; i++) {
+    // Clear previous highlights
+    for (let i = 1; i < tr.length; i++) {
         tr[i].classList.remove("highlight");
     }
 
-    var found = false;
-
-    // Start searching from the current index
-    for (i = currentIndex + 1; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td");
-        for (j = 0; j < td.length; j++) {
+    // Find the next match
+    for (let i = currentIndex + 1; i < tr.length; i++) {
+        let td = tr[i].getElementsByTagName("td");
+        for (let j = 0; j < td.length; j++) {
             if (td[j]) {
-                txtValue = td[j].textContent || td[j].innerText;
+                let txtValue = td[j].textContent || td[j].innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                     tr[i].classList.add("highlight");
                     currentIndex = i;
-                    found = true;
-                    break;
+                    tr[i].scrollIntoView();
+                    return;
                 }
             }
         }
-        if (found) {
-            break;
-        }
     }
 
-    // If no match found, reset the index and try again
-    if (!found) {
-        currentIndex = 0;
-        searchTable();
-    }
+    // If no match found, reset the index and start over
+    currentIndex = -1;
 }
-</script>
-
-</body>
-</html>
