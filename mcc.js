@@ -20,11 +20,15 @@ function searchTable() {
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                     tr[i].classList.add("highlight");
                     currentIndex = i;
-                    tr[i].scrollIntoView();
                     
-                    // Scroll the search bar into view
-                    document.getElementById("searchContainer").scrollIntoView();
+                    // Scroll the matched row into view
+                    tr[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
                     
+                    // Scroll the search bar into view with a delay
+                    setTimeout(() => {
+                        document.getElementById("searchContainer").scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 500);
+
                     return;
                 }
             }
