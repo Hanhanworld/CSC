@@ -21,6 +21,10 @@ function searchTable() {
                     tr[i].classList.add("highlight");
                     currentIndex = i;
                     tr[i].scrollIntoView();
+                    
+                    // Scroll the search bar into view
+                    document.getElementById("searchContainer").scrollIntoView();
+                    
                     return;
                 }
             }
