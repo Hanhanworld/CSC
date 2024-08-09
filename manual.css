@@ -1,0 +1,161 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #2b2b2b;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+}
+
+.sidebar h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #e0e0e0;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #333333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+.content {
+    margin-left: 250px;
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+    background-color: #1e1e1e;
+    overflow-y: auto;
+}
+
+.table-container {
+    flex: 1;
+    margin: 20px;
+    padding: 20px;
+    background-color: #2b2b2b;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    overflow-x: auto;
+    max-width: 100%;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #444444;
+    background-color: #333333;
+}
+
+th {
+    background-color: #2b2b2b;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+tr {
+    background-color: #333333;
+    transition: background-color 0.2s;
+}
+
+tr:hover {
+    background-color: #444444;
+}
+
+td a {
+    text-decoration: none;
+    color: #e0e0e0;
+    display: flex;
+    align-items: center;
+}
+
+td a img {
+    margin-right: 8px;
+}
+
+footer {
+    background-color: #2b2b2b;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        transform: translateX(-100%);
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .content {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .table-container {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
