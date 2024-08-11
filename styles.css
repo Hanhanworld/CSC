@@ -78,7 +78,7 @@ body {
     padding: 20px;
     width: calc(100% - 250px);
     height: 100vh;
-    overflow-y: auto; /* 允许内容滚动 */
+    overflow-y: hidden; /* 允许内容滚动 */
     transition: margin-left 0.3s ease, width 0.3s ease;
     background-color: #1e1e1e;
 }
