@@ -47,11 +47,13 @@ body {
     margin-bottom: 15px;
     font-size: 18px;
     color: #ffffff;
+    cursor: pointer; /* 让 h2 可点击 */
 }
 
 .sidebar ul {
     list-style: none;
     padding: 0;
+    display: none; /* 默认隐藏 */
 }
 
 .sidebar ul li {
@@ -78,7 +80,7 @@ body {
     padding: 20px;
     width: calc(100% - 250px);
     height: 100vh;
-    overflow-y: hidden; /* 允许内容滚动 */
+    overflow-y: hidden;
     transition: margin-left 0.3s ease, width 0.3s ease;
     background-color: #1e1e1e;
 }
@@ -115,4 +117,13 @@ iframe {
         margin-left: 0;
         width: 100%;
     }
+}
+
+/* Collapsible styles */
+.collapsible-content {
+    display: none;
+}
+
+.collapsible-content.show {
+    display: block;
 }
