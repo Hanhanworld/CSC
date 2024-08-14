@@ -41,6 +41,8 @@ body {
 
 .sidebar-content {
     display: block;
+    overflow-y: auto; /* 允许内容滚动 */
+    max-height: calc(100vh - 40px); /* 确保内容不会超出屏幕高度，减去顶部和底部的 padding */
 }
 
 .sidebar h2 {
@@ -117,6 +119,8 @@ iframe {
 
     .sidebar-content {
         display: block;
+        overflow-y: auto;
+        max-height: calc(100vh - 40px); /* 确保内容不会超出屏幕高度 */
     }
 
     .sidebar-toggle {
