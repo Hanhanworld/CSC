@@ -134,7 +134,8 @@ iframe {
     }
 
     .sidebar-content {
-        max-height: calc(100vh - 40px); /* Ensure the content area fits within viewport */
+        height: calc(100vh - 60px); /* Adjust to fit within viewport minus padding */
+        overflow-y: auto; /* Enable vertical scroll */
     }
 
     .content {
