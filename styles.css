@@ -21,7 +21,7 @@ body {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     height: 100vh;
     position: fixed;
-    overflow-y: auto;
+    overflow-y: auto; /* Ensure vertical scroll */
     transform: translateX(-100%); /* Hide sidebar by default */
     transition: transform 0.3s ease;
 }
@@ -33,17 +33,17 @@ body {
     padding: 10px;
     cursor: pointer;
     position: fixed;
-    top: 20px; /* 修改图标按钮位置 */
-    left: 20px; /* 修改图标按钮位置 */
+    top: 20px; /* Modify icon button position */
+    left: 20px; /* Modify icon button position */
     z-index: 10;
     color: #e0e0e0;
 }
 
 .sidebar-content {
     display: block;
-    overflow-y: auto;
-    max-height: calc(100vh - 40px);
-    padding-top: 60px; /* 为了避开图标按钮，增加顶部填充 */
+    overflow-y: auto; /* Ensure sidebar content scrolls if necessary */
+    max-height: calc(100vh - 40px); /* Adjust height to fit within viewport */
+    padding-top: 60px; /* Padding to avoid icon button */
 }
 
 .sidebar.show {
@@ -61,24 +61,24 @@ body {
 }
 
 .sidebar h2::before {
-    content: '▶'; /* 添加箭头图标 */
+    content: '▶'; /* Add arrow icon */
     font-size: 14px;
     margin-right: 10px;
     transition: transform 0.3s ease;
 }
 
 .sidebar h2.collapsible.active::before {
-    transform: rotate(90deg); /* 展开时箭头旋转 */
+    transform: rotate(90deg); /* Rotate arrow on expand */
 }
 
 .sidebar ul {
     list-style: none;
     padding: 0;
-    display: none; /* 默认折叠 */
+    display: none; /* Default to collapsed */
 }
 
 .sidebar ul.show {
-    display: block; /* 展开选项 */
+    display: block; /* Show options when expanded */
 }
 
 .sidebar ul li {
@@ -125,7 +125,7 @@ iframe {
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
-        height: 100vh; /* 确保侧边栏占满整个视口 */
+        height: 100vh; /* Ensure sidebar takes full viewport height */
         transform: translateX(-100%);
     }
 
@@ -134,7 +134,7 @@ iframe {
     }
 
     .sidebar-content {
-        max-height: calc(100vh - 40px); /* 确保内容区域最大高度适应视口 */
+        max-height: calc(100vh - 40px); /* Ensure the content area fits within viewport */
     }
 
     .content {
@@ -145,30 +145,30 @@ iframe {
 
 /* Custom Scrollbar Styles for Chrome and Edge */
 ::-webkit-scrollbar {
-    width: 12px; /* 滚动条的宽度 */
+    width: 12px; /* Scrollbar width */
 }
 
 ::-webkit-scrollbar-track {
-    background: #2b2b2b; /* 滚动条背景 */
-    border-radius: 10px; /* 使滚动条背景更圆滑 */
+    background: #2b2b2b; /* Scrollbar track background */
+    border-radius: 10px; /* Smooth corners */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #444444, #555555); /* 滚动条颜色渐变 */
-    border-radius: 10px; /* 使滚动条更圆滑 */
-    border: 3px solid #2b2b2b; /* 增加滚动块的内边距 */
+    background: linear-gradient(180deg, #444444, #555555); /* Scrollbar color gradient */
+    border-radius: 10px; /* Smooth corners */
+    border: 3px solid #2b2b2b; /* Padding around the scrollbar thumb */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #555555, #666666); /* 当鼠标悬停时滚动条的颜色 */
+    background: linear-gradient(180deg, #555555, #666666); /* Scrollbar color on hover */
 }
 
 ::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(180deg, #666666, #777777); /* 当点击时滚动条的颜色 */
+    background: linear-gradient(180deg, #666666, #777777); /* Scrollbar color on active */
 }
 
 .sidebar-content::-webkit-scrollbar {
-    width: 12px; /* Sidebar滚动条宽度 */
+    width: 12px; /* Sidebar scrollbar width */
 }
 
 .sidebar-content::-webkit-scrollbar-track {
@@ -191,7 +191,7 @@ iframe {
 }
 
 .content iframe::-webkit-scrollbar {
-    width: 12px; /* Iframe内容的滚动条宽度 */
+    width: 12px; /* Iframe content scrollbar width */
 }
 
 .content iframe::-webkit-scrollbar-track {
