@@ -1,0 +1,17 @@
+figure {
+    margin: 20px auto;
+    text-align: center;
+}
+
+figcaption {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+}
+
+p {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-top: 8px;
+}
