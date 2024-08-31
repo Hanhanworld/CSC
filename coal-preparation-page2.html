@@ -7,41 +7,56 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="scrollbar-styles.css">
     <link rel="stylesheet" href="picreadme.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            overflow-y: scroll; /* 确保页面可以垂直滚动 */
-        }
-        .container {
-            padding: 20px;
-            text-align: center;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 20px auto;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <h1>SIWAREX卡片設定、校正程式</h1>
         <figure>
-            <img src="pic/siwarex_SFB53.png" alt="SIWAREX_SFB53寫入">
-            <figcaption>SIWAREX_SFB53寫入程式</figcaption>
+            <img src="pic/siwarex_SFB53.png" alt="SFB53_寫入SIWARE卡片的SFB">
+            <figcaption>SFB53_寫入SIWARE卡片的SFB</figcaption>
         </figure>
-        <figure>
-            <img src="pic/XXXX.png" alt="EOCR 跳脫曲線">
-            <figcaption>上圖中的紅色重點，總跳脫時間為啟動時間(start time)+過電流延時時間(shock time)</figcaption>
-        </figure>
-        <figure>
-            <img src="pic/XXX.png" alt="EOCR(設定教學)">
-            <figcaption>參照馬達銘牌數值，依照13.1先設定三個旋鈕，然後依序13.2~13.3~13.4設定EOCR</figcaption>
-        </figure>
-        
+        <table>
+            <tr>
+                <th>參數</th>
+                <th>資料格式</th>
+                <th>說明</th>
+            </tr>
+            <tr>
+                <td>EN</td>
+                <td>BOOL</td>
+                <td>啟用SFB53模組</td>
+            </tr>
+            <tr>
+                <td>REQ</td>
+                <td>BOOL</td>
+                <td>執行寫入命令</td>
+            </tr>
+            <tr>
+                <td>ID</td>
+                <td>DWORD</td>
+                <td>SIWAREX卡片起始位置</td>
+            </tr>
+            <tr>
+                <td>INDEX</td>
+                <td>INT</td>
+                <td>SIWAREX DR功能數字</td>
+            </tr>
+            <tr>
+                <td>LEN</td>
+                <td>INT</td>
+                <td>欲寫入的資料長度</td>
+            </tr>
+            <tr>
+                <td>RECORD</td>
+                <td>ANY TYPE</td>
+                <td>從PLC位置寫入SIWAREX卡片</td>
+            </tr>
+            <tr>
+                <td>DONE</td>
+                <td>BOOL</td>
+                <td>寫入指令完成</td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>
