@@ -11,6 +11,7 @@
 <body>
     <div class="container">
         <h1>SIWAREX卡片設定、校正程式</h1>
+        <h2 Style="text-align: left;">SFB53功能說明</h2>
         <figure>
             <img src="pic/siwarex_SFB53.png" alt="SFB53_寫入SIWARE卡片的SFB">
             <figcaption>SFB53_寫入SIWARE卡片的SFB</figcaption>
@@ -57,6 +58,82 @@
                 <td>寫入指令完成</td>
             </tr>
         </table>
+        <h4 Style="text-align: left;">SFB53運行原理總結</h4>
+            <P Style="text-align: left;">當 REQ 被觸發時，WRREC 開始將 RECORD 參數中指定的資料寫入到目標裝置 (ID) 中對應的索引 (INDEX) 下的記錄。</P>
+            <P Style="text-align: left;">如果操作成功，則 DONE 置為 TRUE，且 LEN 參數傳回實際寫入的資料長度。如果操作失敗，ERROR 設為 TRUE，且 STATUS 參數會傳回特定的錯誤代碼。</P>
+            <P Style="text-align: left;">WRREC 常用於將參數、配置或其他資料傳送到裝置或模組中，以實現資料寫入或裝置配置更新。</P>
+        <h5 style="border-bottom-style: double;border-bottom-width: 4px;"></h5>
+        <h2 Style="text-align: left;">SFB52功能說明</h2>
+        <figure>
+            <img src="pic/siwarex_SFB52.png" alt="SFB52_從SIWARE卡片讀取的SFB">
+            <figcaption>SFB52_從SIWARE卡片讀取的SFB</figcaption>
+        </figure>
+        <table>
+            <tr>
+                <th>參數</th>
+                <th>資料格式</th>
+                <th>說明</th>
+            </tr>
+            <tr>
+                <td>EN</td>
+                <td>BOOL</td>
+                <td>啟用SFB52模組</td>
+            </tr>
+            <tr>
+                <td>REQ</td>
+                <td>BOOL</td>
+                <td>執行讀取命令</td>
+            </tr>
+            <tr>
+                <td>ID</td>
+                <td>DWORD</td>
+                <td>SIWAREX卡片起始位置</td>
+            </tr>
+            <tr>
+                <td>INDEX</td>
+                <td>INT</td>
+                <td>SIWAREX DR功能數字</td>
+            </tr>
+            <tr>
+                <td>LEN</td>
+                <td>INT</td>
+                <td>欲讀取的資料長度</td>
+            </tr>
+            <tr>
+                <td>RECORD</td>
+                <td>ANY TYPE</td>
+                <td>從SIWAREX卡片讀取放入PLC位置</td>
+            </tr>
+            <tr>
+                <td>VALID</td>
+                <td>BOOL</td>
+                <td>讀取成功=1</td>
+            </tr>
+            <tr>
+                <td>BUSY</td>
+                <td>BOOL</td>
+                <td>讀取中=1</td>
+            </tr>
+            <tr>
+                <td>ERROR</td>
+                <td>BOOL</td>
+                <td>讀取錯誤</td>
+            </tr>
+            <tr>
+                <td>STATUS</td>
+                <td>DWARD</td>
+                <td>讀取錯誤時的錯誤代碼</td>
+            </tr>
+            <tr>
+                <td>LEN</td>
+                <td>INT</td>
+                <td>讀取成功時將顯示資料長度</td>
+            </tr>
+        </table>
+        <h4 Style="text-align: left;">SFB52運行原理總結</h4>
+            <P Style="text-align: left;">當 REQ 被觸發時，RDREC 開始讀取指定裝置 (ID) 中對應索引 (INDEX) 的資料記錄，並將資料存放到 RECORD 參數指定的儲存區域內。</P>
+            <P Style="text-align: left;">如果操作成功，則 VALID 設為 TRUE，且 LEN 參數傳回實際讀取的資料長度。如果操作失敗，ERROR 設為 TRUE，且 STATUS 參數會傳回特定的錯誤代碼。</P>
+            <P Style="text-align: left;">這些參數可讓 RDREC 讀取來自不同裝置的數據，適用於多種資料擷取或診斷情境。</P>
     </div>
 </body>
 </html>
