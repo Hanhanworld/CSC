@@ -5,7 +5,7 @@ body {
     background-color: #1e1e1e;
     color: #e0e0e0;
     background-image: url('pic/background_pic.jpg');
-    background-size: 100% auto ; /* 讓背景圖片覆蓋整個頁面 */
+    background-size: cover ; /* 讓背景圖片覆蓋整個頁面 */
     background-attachment: fixed; /* 固定背景圖片 */
     background-position: center; /* 背景圖片置中 */
     background-repeat: no-repeat; /* 不重複背景圖片 */
