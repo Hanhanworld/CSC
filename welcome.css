@@ -4,12 +4,20 @@ body {
     text-align: center;
     background-color: #1e1e1e;
     color: #e0e0e0;
+    background-image: url('pic/background_pic.jpg');
+    background-size: 100% auto ; /* 讓背景圖片覆蓋整個頁面 */
+    background-attachment: fixed; /* 固定背景圖片 */
+    background-position: center; /* 背景圖片置中 */
+    background-repeat: no-repeat; /* 不重複背景圖片 */
+    opacity: 0.8; /* 控制背景圖片透明度，0.8 是80%的不透明度 */
 }
 
 .container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    background-color: rgba(255, 255, 255, 0.8); /* 讓表格的背景帶有輕微透明 */
+    padding: 20px;
 }
 
 .table-container {
