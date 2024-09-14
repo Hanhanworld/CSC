@@ -4,7 +4,7 @@
     flex-direction: column; /* 確保圖片上下排列 */
     justify-content: space-around;
     gap: 20px;
-    width: 20%; /* 容器寬度 */
+    width: 100%; /* 容器寬度 */
     box-sizing: border-box;
 }
 
