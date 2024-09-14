@@ -1,0 +1,62 @@
+/* 原有樣式 */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.image-text-container figure {
+    flex-shrink: 0;
+    margin-right: 20px;
+    text-align: center;
+}
+
+/* 電腦模式，圖片在左，文字在右，文字和圖片上方對齊 */
+@media (min-width: 768px) {
+    .image-text-container {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start; /* 文字與圖片上方對齊 */
+    }
+
+    .image-text-container .description {
+        max-width: 60%;
+        text-align: left;
+    }
+
+    .image-text-container figure {
+        margin-right: 20px;
+        max-width: 30%;
+    }
+
+    .image-text-container img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* 新增樣式：讓圖片左右並排 */
+.container {
+    display: flex;
+    justify-content: space-around; /* 讓圖片之間保持間距 */
+    flex-wrap: wrap; /* 如果螢幕過小，圖片會自動換行 */
+    gap: 20px; /* 增加圖片之間的間距 */
+}
+
+.image-container {
+    text-align: center; /* 讓標題和圖片居中對齊 */
+    flex: 1 1 300px; /* 每個圖片容器至少占據 300px 的寬度，並能根據空間自動調整 */
+}
+
+img {
+    max-width: 100%; /* 確保圖片不會超過容器寬度 */
+    height: auto;
+}
