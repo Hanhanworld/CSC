@@ -1,59 +1,26 @@
-/* 確保圖片左右並排 */
+/* 確保圖片在電腦和手機上均上下排列 */
 .container {
     display: flex;
-    justify-content: space-around; /* 圖片之間的間距 */
-    flex-wrap: wrap; /* 螢幕小時自動換行 */
-    gap: 20px; /* 圖片之間的間距 */
-    width: 100%; /* 確保容器佔滿可用空間 */
+    flex-direction: column; /* 確保圖片上下排列 */
+    justify-content: space-around;
+    gap: 20px;
+    width: 20%; /* 容器寬度 */
+    box-sizing: border-box;
 }
 
 .image-container {
-    flex: 1 1 300px; /* 圖片容器最小300px，根據空間自動調整 */
-    text-align: center; /* 圖片和標題居中 */
-    max-width: 45%; /* 圖片容器最多佔用45%的寬度 */
-    box-sizing: border-box; /* 包含內外邊距在內的計算方式 */
+    flex: 1 1 300px; /* 每個圖片容器最小寬度300px，根據螢幕大小調整 */
+    text-align: center;
+    max-width: 100%; /* 圖片容器最大佔用100%寬度 */
+    box-sizing: border-box;
 }
 
 img {
-    max-width: 100%; /* 確保圖片不會超過容器寬度 */
+    max-width: 100%; /* 確保圖片不超出容器寬度 */
     height: auto;
 }
 
-/* 保持對齊的原有樣式 */
-.image-text-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.image-text-container figure {
-    flex-shrink: 0;
-    margin-right: 20px;
-    text-align: center;
-}
-
-/* 電腦模式：圖片在左，文字在右 */
-@media (min-width: 768px) {
-    .image-text-container {
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: flex-start;
-    }
-
-    .image-text-container .description {
-        max-width: 60%;
-        text-align: left;
-    }
-
-    .image-text-container figure {
-        margin-right: 20px;
-        max-width: 30%;
-    }
-
-    .image-text-container img {
-        max-width: 100%;
-        height: auto;
-    }
+h1 {
+    text-align: center; /* 文字置中 */
+    width: 100%; /* 確保 h1 佔滿容器寬度 */
 }
