@@ -40,4 +40,33 @@
         max-width: 100%;
         height: auto;
     }
+
+    /* 特別針對最後一組圖片的佈局 */
+    .image-row {
+        display: flex;
+        justify-content: right;
+        width: 100%; /* 確保圖片父容器的寬度允許並排 */
+    }
+
+    .image-row figure {
+        margin: 0 15px;
+        max-width: 45%; /* 保證圖片寬度合適，能夠並排 */
+    }
+
+    .image-row img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* 確保最後的描述文字與圖片對齊 */
+    .image-text-container.image-row-container .description {
+        max-width: 100%;
+        text-align: left;
+        margin-top: 15px;
+    }
+    .ddescription {
+        text-align: left; /* 保證描述內容左對齊 */
+        width: 100%;      /* 確保文字區域寬度適應整個父容器 */
+    }
+    
 }
