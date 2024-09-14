@@ -37,11 +37,4 @@ document.querySelectorAll('.collapsible').forEach(function(collapsible) {
         this.nextElementSibling.classList.toggle('show');
     });
 });
-function openManual() {
-    // 找到 manual.html 的链接
-    const manualLink = document.querySelector('.sidebar-content a[href="manual.html"]');
-    // 如果找到链接，模拟点击
-    if (manualLink) {
-        manualLink.click();
-    }
-}
+
