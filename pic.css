@@ -1,0 +1,72 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e; /* 背景颜色 */
+    color: #e0e0e0; /* 字体颜色 */
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap; /* 自动换行 */
+    justify-content: center; /* 图片居中 */
+    padding: 20px;
+    max-width: 100%; /* 容器最大宽度为100%，不会超出浏览器宽度 */
+    box-sizing: border-box; /* 包含内边距在容器宽度内 */
+}
+
+figure {
+    margin: 10px; /* 确保图形间距 */
+    width: 325px; /* 固定每个 figure 的宽度 */
+    display: flex;
+    flex-direction: column; /* 垂直排列图片和说明 */
+    align-items: center; /* 水平居中 */
+}
+
+img {
+    width: 100%;  /* 设置为100%以适应 figure 宽度 */
+    height: auto;  /* 高度自动调整，保持比例 */
+    max-height: 200px; /* 最大高度为 200px，保持统一高度 */
+    object-fit: contain; /* 图片保持完整，避免裁剪 */
+}
+
+figcaption {
+    text-align: center; /* 文本居中对齐 */
+    margin-top: 5px; /* 上方留一点间距 */
+    color: #e0e0e0; /* 保持与正文一致的颜色 */
+}
+
+/* 表格样式保持不变，如果不需要可以移除 */
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 80%; /* 可根据需要调整表格宽度 */
+    background-color: #2b2b2b; /* 表格背景颜色 */
+    color: #e0e0e0; /* 表格文字颜色 */
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #8a5300; /* 表头背景颜色 */
+    color: #ffffff; /* 表头文字颜色 */
+}
+
+/* 额外样式，增加滚动条的美观 */
+table {
+    border-radius: 4px; /* 圆角 */
+    overflow: hidden; /* 避免内部元素溢出 */
+}
