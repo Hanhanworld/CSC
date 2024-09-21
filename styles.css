@@ -156,8 +156,12 @@ iframe {
     color: #ffffff; /* 鼠标悬停时文字颜色 */
 }
 .container {
-    padding-left: 43px; /* 在左边添加 43 像素的内边距 */
+    max-width: 800px; /* 或者使用其他适合你的宽度 */
+    margin: 20px auto; /* 上下 20px，左右 auto 以水平置中 */
+    padding-left: 45px; /* 左边内边距 */
+    padding-top: 60px;  /* 上方内边距 */
 }
+
 
 
 @media (max-width: 768px) {
