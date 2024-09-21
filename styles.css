@@ -141,6 +141,21 @@ iframe {
     border: none;
     overflow-y: auto;
 }
+.collapsible-content a {
+    text-decoration: none;
+    color: #e0e0e0; /* 设置链接文字颜色 */
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #333333; /* 背景颜色 */
+    transition: background-color 0.3s ease, color 0.3s ease; /* 设置过渡效果 */
+}
+
+.collapsible-content a:hover {
+    background-color: #444444; /* 鼠标悬停时背景颜色 */
+    color: #ffffff; /* 鼠标悬停时文字颜色 */
+}
+
 
 @media (max-width: 768px) {
     .sidebar {
