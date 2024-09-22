@@ -81,3 +81,7 @@ table {
     height: auto; /* 高度自动调整，保持比例 */
     object-fit: contain; /* 保持图片比例，避免裁剪 */
 }
+html, body {
+    height: 100%; /* 确保页面高度填满视口 */
+    overflow-y: auto; /* 允许垂直滚动 */
+}
