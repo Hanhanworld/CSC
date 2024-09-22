@@ -85,3 +85,9 @@ html, body {
     width: 100vw; /* 防止水平滚动条 */
     overflow-x: hidden; /* 禁止水平滚动 */
 }
+@media screen and (max-width: 600px) {
+    body {
+        padding-top: 60px; /* 根据需求调整上方留白，避免内容被遮挡 */
+        padding-bottom: 60px; /* 根据需求调整上方留白，避免内容被遮挡 */
+    }
+}
