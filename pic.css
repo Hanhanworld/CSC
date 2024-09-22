@@ -14,12 +14,14 @@ body {
 
 .container {
     display: flex;
-    flex-wrap: wrap; /* 自动换行 */
-    justify-content: center; /* 图片居中 */
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 20px;
-    max-width: 100%; /* 容器最大宽度为100%，不会超出浏览器宽度 */
-    box-sizing: border-box; /* 包含内边距在容器宽度内 */
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: visible; /* 确保溢出的内容可见 */
 }
+
 
 figure {
     margin: 10px; /* 确保图形间距 */
