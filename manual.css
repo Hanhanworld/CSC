@@ -61,15 +61,26 @@ tr:hover {
     background-color: #444444;
 }
 
+/* ✅ 修正下載 icon 點擊區域只限圖片部分 */
 td a {
     text-decoration: none;
     color: #e0e0e0;
-    display: flex;
-    align-items: center;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    line-height: 0;
 }
 
+/* ✅ 圖示 hover 效果 + 保留 margin-right */
 td a img {
     margin-right: 8px;
+    vertical-align: middle;
+    transition: opacity 0.2s;
+}
+
+td a img:hover {
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 footer {
