@@ -103,6 +103,21 @@ tbody tr:nth-child(even) {
     outline-offset: -2px;
 }
 
+mark.search-match {
+    padding: 1px 3px;
+    border-radius: 3px;
+    background-color: #ffd166;
+    color: #18242a;
+    font-weight: 800;
+    box-shadow: 0 0 0 1px rgba(255, 209, 102, 0.35);
+}
+
+.highlight mark.search-match {
+    background-color: #102126;
+    color: #8ce8df;
+    box-shadow: none;
+}
+
 @media (max-width: 700px) {
     #searchContainer {
         flex-wrap: wrap;
