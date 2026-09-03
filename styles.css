@@ -37,6 +37,7 @@ body {
     overflow-y: auto; /* Ensure vertical scroll */
     transform: translateX(-100%); /* Hide sidebar by default */
     transition: transform 0.3s ease;
+    z-index: 20;
 }
 
 .sidebar-toggle {
@@ -53,6 +54,10 @@ body {
     border-radius: 6px;
     line-height: 1;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.24);
+}
+
+.sidebar-overlay {
+    display: none;
 }
 
 .sidebar-toggle:hover,
@@ -214,7 +219,7 @@ iframe {
 
 @media (max-width: 768px) {
     .sidebar {
-        width: 100%;
+        width: min(86vw, 320px);
         height: 100vh; /* Ensure sidebar takes full viewport height */
         transform: translateX(-100%);
     }
@@ -231,6 +236,26 @@ iframe {
     .content {
         margin-left: 0;
         width: 100%;
+    }
+
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 15;
+        background: rgba(5, 11, 16, 0.58);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .sidebar-toggle {
+        z-index: 30;
     }
     .hidden {
         display: none;
