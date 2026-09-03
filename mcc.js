@@ -52,6 +52,12 @@ function highlightText(row, filter) {
     });
 }
 
+function scrollRowWithinPage(row) {
+    const rowTop = row.getBoundingClientRect().top + window.scrollY;
+    const targetTop = Math.max(0, rowTop - (window.innerHeight / 2) + (row.offsetHeight / 2));
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
+}
+
 function searchTable() {
     const filter = searchInput.value.trim().toLocaleUpperCase();
     const rows = getRows();
@@ -84,7 +90,7 @@ function searchTable() {
     const nextMatch = matches.find(match => match.index > currentIndex) || matches[0];
     currentIndex = nextMatch.index;
     nextMatch.row.classList.add('highlight');
-    nextMatch.row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    scrollRowWithinPage(nextMatch.row);
     searchStatus.textContent = `第 ${matches.findIndex(match => match.index === currentIndex) + 1} / ${matches.length} 筆結果`;
 }
 
