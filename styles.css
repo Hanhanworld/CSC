@@ -236,6 +236,7 @@ iframe {
     .content {
         margin-left: 0;
         width: 100%;
+        padding-top: 72px;
     }
 
     .sidebar-overlay {
@@ -256,6 +257,10 @@ iframe {
 
     .sidebar-toggle {
         z-index: 30;
+        top: 12px;
+        left: 12px;
+        min-width: 44px;
+        min-height: 44px;
     }
     .hidden {
         display: none;
