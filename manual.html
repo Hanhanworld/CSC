@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="dark-theme.css">
 </head>
 <body>
+    <div id="searchContainer">
+        <label for="searchInput">搜尋手冊資料</label>
+        <input type="search" id="searchInput" placeholder="輸入手冊名稱、設備或說明" autocomplete="off">
+        <button id="searchButton" type="button">搜尋</button>
+        <p id="searchStatus" aria-live="polite"></p>
+    </div>
     <div class="content">
         <div class="table-container">
             <h1>設備操作/維修手冊下載</h1>
-            <table>
+            <table id="equipmentTable">
                 <thead>
                     <tr>
                         <th>手冊名稱</th>
@@ -343,5 +349,6 @@
             <img src="email.png" alt="Email Icon" style="vertical-align: middle; width: 20px; height: 20px;">
         </a>
     </footer>
+    <script src="mcc.js"></script>
 </body>
 </html>
