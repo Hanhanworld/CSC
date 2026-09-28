@@ -18,17 +18,26 @@
             <a class="map-home-link" href="welcome.html" target="contentFrame">回首頁</a>
         </header>
 
-        <section class="map-viewer" aria-label="廠區電子地圖">
+        <div class="map-toolbar" role="toolbar" aria-label="地圖檢視控制">
+            <button type="button" data-map-action="zoom-out" aria-label="縮小地圖" title="縮小地圖">−</button>
+            <output class="zoom-level" aria-live="polite">100%</output>
+            <button type="button" data-map-action="zoom-in" aria-label="放大地圖" title="放大地圖">+</button>
+            <span class="toolbar-divider" aria-hidden="true"></span>
+            <button class="text-button" type="button" data-map-action="fit">適合視窗</button>
+            <button class="text-button" type="button" data-map-action="reset">重設</button>
+        </div>
+
+        <section class="map-viewer" aria-label="廠區電子地圖，可使用加減鍵縮放、0 鍵適合視窗" tabindex="0">
             <img
                 class="factory-map"
                 src="images/electronic-map.png"
-                alt="中國鋼鐵股份有限公司廠區佈置圖"
-                onerror="this.hidden = true; document.querySelector('.map-missing').hidden = false;">
+                alt="中國鋼鐵股份有限公司廠區佈置圖">
             <div class="map-missing" hidden>
                 <h2>尚未載入地圖圖片</h2>
                 <p>請將提供的電子地圖圖片放入 <code>images/electronic-map.png</code>。</p>
             </div>
         </section>
     </main>
+    <script src="electronic-map.js"></script>
 </body>
 </html>
