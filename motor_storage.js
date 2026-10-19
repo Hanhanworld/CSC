@@ -1,4 +1,4 @@
-const DATA_URL = 'motor_storage_data.json';
+const DATA_URL = 'motor_storage_data.json?v=ez-columns-20261019';
 const PAGE_SIZE = 30;
 
 const searchInput = document.getElementById('searchInput');
