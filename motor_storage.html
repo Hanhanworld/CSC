@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="依設備編號、名稱、料號、廠牌、規格等欄位查詢馬達資料。">
+    <meta name="description" content="只比對 Excel E 欄與 Z 欄關鍵字查詢馬達資料，其他欄位保留供參考。">
     <title>馬達資料查詢</title>
     <link rel="stylesheet" href="motor_storage.css">
 </head>
@@ -12,14 +12,14 @@
         <a class="back-link" href="index.html" target="_top" aria-label="返回網站首頁">← 網站首頁</a>
         <p class="eyebrow">W261 MOTOR INVENTORY</p>
         <h1>馬達資料查詢</h1>
-        <p class="intro">搜尋設備編號、名稱、料號、廠牌、型式或其他資料欄位。</p>
+        <p class="intro">只比對 Excel 的 E 欄與 Z 欄；其他欄位仍列在結果中供參考。</p>
     </header>
 
     <main class="page-content">
         <section class="search-panel" aria-label="搜尋馬達資料">
             <label for="searchInput">關鍵字</label>
             <div class="search-row">
-                <input id="searchInput" type="search" placeholder="例如：CONVEYOR、T32L090101、SIEMENS" autocomplete="off" spellcheck="false">
+                <input id="searchInput" type="search" placeholder="例如：E 欄 CONVEYOR G1、Z 欄 604100186323" autocomplete="off" spellcheck="false">
                 <button id="clearButton" type="button" class="clear-button" hidden>清除</button>
             </div>
             <div class="filter-row">
@@ -27,7 +27,7 @@
                 <select id="sheetFilter" disabled>
                     <option value="">全部分類</option>
                 </select>
-                <span id="searchHint" class="search-hint">輸入關鍵字後開始查詢；以空白分隔可同時比對多個關鍵字。</span>
+                <span id="searchHint" class="search-hint">只搜尋 E 欄與 Z 欄；其他欄位會保留在完整資料中參考。多個關鍵字以空白分隔。</span>
             </div>
         </section>
 

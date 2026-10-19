@@ -49,13 +49,15 @@ async function loadRecords() {
                 throw new Error('資料檔格式不正確，請稍後再試。');
             }
 
-            records = data.records.map(record => ({
-                ...record,
-                searchText: normalize([
-                    record.sheet,
-                    ...record.fields.flatMap(field => [field[0], field[1]])
-                ].join(' '))
-            }));
+            records = data.records.map(record => {
+                if (!Array.isArray(record.fields) || !Array.isArray(record.searchFields)) {
+                    throw new Error('資料檔缺少完整欄位或 E、Z 欄搜尋資料。');
+                }
+                return {
+                    ...record,
+                    searchText: normalize(record.searchFields.join(' '))
+                };
+            });
 
             const sheets = [...new Set(records.map(record => record.sheet))];
             for (const sheet of sheets) {
