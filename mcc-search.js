@@ -54,7 +54,7 @@ async function loadRecords() {
 
             records = data.records.map(record => ({
                 ...record,
-                searchText: normalize(record.fields.flat().join(' '))
+                searchText: normalize(record.fields[1])
             }));
 
             const locations = [...new Set(records.map(record => record.fields[0]))].sort((a, b) => a.localeCompare(b, 'zh-Hant'));

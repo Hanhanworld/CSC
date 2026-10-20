@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="依地點、設備名稱、MCC 名稱、盤面位置或備註查詢 MCC 設備資料。">
+    <meta name="description" content="依設備名稱搜尋 MCC 設備；地點、MCC 名稱、盤面位置與備註可供參考。">
     <title>MCC 設備查詢</title>
     <link rel="stylesheet" href="motor_storage.css">
 </head>
@@ -12,14 +12,14 @@
         <a class="back-link" href="index.html" target="_top" aria-label="返回網站首頁">← 網站首頁</a>
         <p class="eyebrow">MCC EQUIPMENT DIRECTORY</p>
         <h1>MCC 設備查詢</h1>
-        <p class="intro">搜尋地點、設備名稱、MCC 名稱、盤面位置或備註，快速找到設備所在位置。</p>
+        <p class="intro">關鍵字只搜尋設備名稱；查詢結果仍會顯示地點、MCC 名稱、盤面位置與備註。</p>
     </header>
 
     <main class="page-content">
         <section class="search-panel" aria-label="搜尋 MCC 設備">
             <label for="searchInput">關鍵字</label>
             <div class="search-row">
-                <input id="searchInput" type="search" placeholder="例如：推焦車、MCC1、14D、FFRC-502" autocomplete="off" spellcheck="false">
+                <input id="searchInput" type="search" placeholder="輸入設備名稱，例如：推焦車、油壓驅動器" autocomplete="off" spellcheck="false">
                 <button id="clearButton" type="button" class="clear-button" hidden>清除</button>
             </div>
             <div class="filter-row">
@@ -27,7 +27,7 @@
                 <select id="locationFilter" disabled>
                     <option value="">全部地點</option>
                 </select>
-                <span class="search-hint">輸入關鍵字後才載入結果；多個關鍵字以空白分隔，需同時符合。</span>
+                <span class="search-hint">只比對設備名稱；多個關鍵字以空白分隔，需同時出現在名稱中。</span>
             </div>
         </section>
 
@@ -46,6 +46,6 @@
         <p class="data-note">資料來源：MCC 設備列表</p>
     </main>
 
-    <script src="mcc-search.js?v=search-page-20261019"></script>
+    <script src="mcc-search.js?v=name-only-20261020"></script>
 </body>
 </html>
