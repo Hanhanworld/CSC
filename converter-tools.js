@@ -82,7 +82,15 @@
         var output = root.querySelector("[data-result]");
         var resultUnit = root.querySelector("[data-result-unit]");
         var note = root.querySelector("[data-result-note]");
-        var meterFill = root.querySelector("[data-meter-fill]");
+        var engineeringSlider = root.querySelector("[data-engineering-slider]");
+        var signalSlider = root.querySelector("[data-signal-slider]");
+        var engineeringLowLabel = root.querySelector("[data-engineering-low-label]");
+        var engineeringHighLabel = root.querySelector("[data-engineering-high-label]");
+        var signalReadouts = root.querySelector("[data-signal-readouts]");
+        var currentReadout = root.querySelector("[data-current-readout]");
+        var currentDisplay = root.querySelector("[data-current-display]");
+        var percentDisplay = root.querySelector("[data-percent-display]");
+        var countDisplay = root.querySelector("[data-count-display]");
         var modeButtons = Array.prototype.slice.call(root.querySelectorAll("[data-mode-button]"));
         var mode = "process";
 
@@ -97,6 +105,8 @@
             var processMode = mode === "process";
             processGroup.hidden = !processMode;
             currentGroup.hidden = processMode;
+            currentReadout.hidden = processMode;
+            signalReadouts.classList.toggle("has-current", !processMode);
             modeButtons.forEach(function (button) {
                 button.setAttribute("aria-pressed", String(button.dataset.modeButton === mode));
             });
@@ -115,17 +125,35 @@
             });
             var invalid = !Number.isFinite(lower) || !Number.isFinite(upper) ||
                 !Number.isFinite(value) || upper <= lower;
+            var finiteRange = Number.isFinite(lower) && Number.isFinite(upper);
+            engineeringSlider.disabled = !finiteRange || upper <= lower;
+            signalSlider.disabled = !finiteRange || upper <= lower;
+            engineeringSlider.min = finiteRange ? String(lower) : "0";
+            engineeringSlider.max = finiteRange ? String(upper) : "100";
+            engineeringSlider.step = finiteRange && upper > lower
+                ? String((upper - lower) / 1000)
+                : "1";
+            engineeringLowLabel.textContent = finiteRange
+                ? formatNumber(lower) + " " + displayUnit
+                : "—";
+            engineeringHighLabel.textContent = finiteRange
+                ? formatNumber(upper) + " " + displayUnit
+                : "—";
 
             resultUnit.textContent = mode === "process" ? "mA" : displayUnit;
             output.classList.toggle("is-error", invalid);
 
             if (invalid) {
                 output.textContent = "—";
+                currentDisplay.textContent = "—";
+                percentDisplay.textContent = "—";
+                countDisplay.textContent = "—";
                 note.textContent = upper <= lower && Number.isFinite(lower) && Number.isFinite(upper)
                     ? "量程上限必須大於下限"
                     : "請確認輸入的數值";
                 note.classList.add("is-error");
-                meterFill.style.width = "0%";
+                signalSlider.style.setProperty("--range-progress", "0%");
+                engineeringSlider.style.setProperty("--range-progress", "0%");
                 return;
             }
 
@@ -133,31 +161,62 @@
             var percent;
             var result;
             var outOfRange;
+            var signal;
 
             if (mode === "process") {
                 percent = (value - lower) / (upper - lower) * 100;
-                result = 4 + percent / 100 * 16;
+                signal = 4 + percent / 100 * 16;
+                result = signal;
                 outOfRange = percent < 0 || percent > 100;
-                note.textContent = formatNumber(percent) + "% 量程 · " +
-                    formatNumber(Math.round(percent * 276.48)) + " / 27,648 counts" +
-                    (outOfRange ? " · 超出設定量程，顯示線性外插值" : "");
             } else {
+                signal = value;
                 percent = (value - 4) / 16 * 100;
                 result = lower + percent / 100 * (upper - lower);
                 outOfRange = value < 4 || value > 20;
-                note.textContent = formatNumber(percent) + "% 量程 · " +
-                    formatNumber(Math.round(percent * 276.48)) + " / 27,648 counts" +
-                    (outOfRange ? " · 電流超出 4–20 mA 範圍，顯示線性外插值" : "");
             }
 
             output.textContent = formatNumber(result);
-            meterFill.style.width = Math.max(0, Math.min(100, percent)) + "%";
+            currentDisplay.textContent = formatNumber(Number(signal.toFixed(3)));
+            percentDisplay.textContent = formatNumber(Number(percent.toFixed(2)));
+            countDisplay.textContent = formatNumber(Math.round(percent * 276.48));
+            note.textContent = outOfRange
+                ? "超出 4–20 mA 對應量程，顯示線性外插值"
+                : "4 mA 對應量程下限 · 20 mA 對應量程上限";
+
+            var clampedPercent = Math.max(0, Math.min(100, percent));
+            var signalProgress = clampedPercent + "%";
+            signalSlider.value = String(Math.round(clampedPercent * 276.48));
+            signalSlider.style.setProperty("--range-progress", signalProgress);
+
+            var engineeringValue = mode === "process" ? value : result;
+            var clampedEngineering = Math.max(lower, Math.min(upper, engineeringValue));
+            engineeringSlider.value = String(clampedEngineering);
+            engineeringSlider.style.setProperty(
+                "--range-progress",
+                ((clampedEngineering - lower) / (upper - lower) * 100) + "%"
+            );
         }
 
         modeButtons.forEach(function (button) {
             button.addEventListener("click", function () {
                 setMode(button.dataset.modeButton);
             });
+        });
+
+        engineeringSlider.addEventListener("input", function () {
+            processInput.value = engineeringSlider.value;
+            update();
+        });
+
+        signalSlider.addEventListener("input", function () {
+            var count = Number(signalSlider.value);
+            if (mode === "process") {
+                processInput.value = String(readNumber(low) +
+                    count / 27648 * (readNumber(high) - readNumber(low)));
+            } else {
+                currentInput.value = String(4 + count / 27648 * 16);
+            }
+            update();
         });
 
         [low, high, unitSelect, customUnit, processInput, currentInput].forEach(function (element) {

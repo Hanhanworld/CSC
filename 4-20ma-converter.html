@@ -64,27 +64,26 @@
                 </div>
                 <div class="range-grid">
                     <label>
-                        <span class="field-label">下限（LRV）</span>
+                        <span class="field-label">下限（LRV）<span class="range-unit-label" data-range-unit-label>°C</span></span>
                         <span class="field-control">
                             <input class="tool-input" data-range-low type="number" inputmode="decimal" step="any" value="0" aria-label="工程量程下限">
-                            <span class="range-unit" data-range-unit-label>°C</span>
                         </span>
                     </label>
                     <label>
-                        <span class="field-label">上限（URV）</span>
+                        <span class="field-label">上限（URV）<span class="range-unit-label" data-range-unit-label>°C</span></span>
                         <span class="field-control">
                             <input class="tool-input" data-range-high type="number" inputmode="decimal" step="any" value="100" aria-label="工程量程上限">
-                            <span class="range-unit" data-range-unit-label>°C</span>
                         </span>
                     </label>
                 </div>
 
                 <div data-process-group>
-                    <label class="field-label" for="process-value">工程值</label>
+                    <label class="field-label" for="process-value">工程值<span class="range-unit-label" data-range-unit-label>°C</span></label>
                     <div class="field-control">
                         <input class="tool-input" id="process-value" data-process-value type="number" inputmode="decimal" step="any" value="50" autocomplete="off">
-                        <span class="range-unit" data-range-unit-label>°C</span>
                     </div>
+                    <input class="tool-range" data-engineering-slider type="range" min="0" max="100" step="0.1" value="50" aria-label="拖曳選擇工程值">
+                    <div class="slider-endpoints"><span data-engineering-low-label>0 °C</span><span data-engineering-high-label>100 °C</span></div>
                 </div>
 
                 <div data-current-group hidden>
@@ -99,9 +98,21 @@
                     <p class="result-label">換算結果</p>
                     <div class="result-value"><span data-result>12</span><span class="result-unit" data-result-unit>mA</span></div>
                     <p class="result-note" data-result-note>50% 量程</p>
-                    <div class="signal-meter" role="img" aria-label="4 至 20 毫安訊號位置">
-                        <div class="signal-meter-fill" data-meter-fill></div>
+                    <div class="signal-readouts" data-signal-readouts>
+                        <div class="signal-readout" data-current-readout hidden>
+                            <span class="signal-readout-label">4–20 mA</span>
+                            <div class="signal-readout-value"><strong data-current-display>12</strong><small>mA</small></div>
+                        </div>
+                        <div class="signal-readout">
+                            <span class="signal-readout-label">量程比例</span>
+                            <div class="signal-readout-value"><strong data-percent-display>50</strong><small>%</small></div>
+                        </div>
+                        <div class="signal-readout">
+                            <span class="signal-readout-label">PLC 原始值</span>
+                            <div class="signal-readout-value"><strong data-count-display>13,824</strong><small>/ 27,648</small></div>
+                        </div>
                     </div>
+                    <input class="tool-range" data-signal-slider type="range" min="0" max="27648" step="1" value="13824" aria-label="拖曳選擇 4–20 mA 與 PLC 原始值">
                     <div class="meter-labels"><span>4 mA<br>0% · 0</span><span>12 mA<br>50% · 13,824</span><span>20 mA<br>100% · 27,648</span></div>
                 </div>
             </section>
