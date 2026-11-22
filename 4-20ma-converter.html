@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b1118">
+    <title>4–20 mA 換算 | 現場工具</title>
+    <link rel="stylesheet" href="converter-tools.css">
+</head>
+<body class="converter-page">
+    <div class="tool-shell" data-tool="signal">
+        <header class="tool-topline">
+            <div class="tool-brand">
+                <span class="tool-brand-mark" aria-hidden="true">↗</span>
+                <span>現場換算工具</span>
+            </div>
+            <nav class="tool-nav" aria-label="換算工具">
+                <a href="pressure-converter.html">壓力</a>
+                <a href="4-20ma-converter.html" aria-current="page">4–20</a>
+                <a href="temperature-converter.html">溫度</a>
+            </nav>
+        </header>
+
+        <main>
+            <h1 class="tool-heading">4–20 mA 換算</h1>
+            <p class="tool-intro">依照訊號量程，快速換算工程值與電流。</p>
+
+            <section class="tool-card" aria-label="4–20 mA換算器">
+                <div class="mode-switch" role="group" aria-label="換算方向">
+                    <button class="mode-button" type="button" data-mode-button="process" aria-pressed="true">工程值 → mA</button>
+                    <button class="mode-button" type="button" data-mode-button="current" aria-pressed="false">mA → 工程值</button>
+                </div>
+
+                <div class="range-heading">
+                    <span class="field-label">工程量程</span>
+                    <div class="field-control range-unit-control">
+                        <select class="tool-select range-unit-picker" data-range-unit-select aria-label="工程值單位">
+                            <optgroup label="溫度">
+                                <option value="°C" selected>°C</option>
+                                <option value="°F">°F</option>
+                            </optgroup>
+                            <optgroup label="壓力">
+                                <option value="Pa">Pa</option>
+                                <option value="kPa">kPa</option>
+                                <option value="MPa">MPa</option>
+                                <option value="bar">bar</option>
+                                <option value="kgf/cm²">kgf/cm²</option>
+                                <option value="psi">psi</option>
+                                <option value="mmHg">mmHg</option>
+                                <option value="atm">atm</option>
+                            </optgroup>
+                            <optgroup label="轉速">
+                                <option value="rpm">rpm</option>
+                            </optgroup>
+                            <option value="custom">自定義</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="range-custom-row" data-custom-unit-row hidden>
+                    <label class="field-label" for="custom-engineering-unit">自定義單位</label>
+                    <div class="field-control range-unit-control">
+                        <input class="tool-input range-unit-custom" id="custom-engineering-unit" data-range-unit-custom type="text" value="" maxlength="12" placeholder="輸入單位" aria-label="輸入自定義工程單位">
+                    </div>
+                </div>
+                <div class="range-grid">
+                    <label>
+                        <span class="field-label">下限（LRV）</span>
+                        <span class="field-control">
+                            <input class="tool-input" data-range-low type="number" inputmode="decimal" step="any" value="0" aria-label="工程量程下限">
+                            <span class="range-unit" data-range-unit-label>°C</span>
+                        </span>
+                    </label>
+                    <label>
+                        <span class="field-label">上限（URV）</span>
+                        <span class="field-control">
+                            <input class="tool-input" data-range-high type="number" inputmode="decimal" step="any" value="100" aria-label="工程量程上限">
+                            <span class="range-unit" data-range-unit-label>°C</span>
+                        </span>
+                    </label>
+                </div>
+
+                <div data-process-group>
+                    <label class="field-label" for="process-value">工程值</label>
+                    <div class="field-control">
+                        <input class="tool-input" id="process-value" data-process-value type="number" inputmode="decimal" step="any" value="50" autocomplete="off">
+                        <span class="range-unit" data-range-unit-label>°C</span>
+                    </div>
+                </div>
+
+                <div data-current-group hidden>
+                    <label class="field-label" for="current-value">輸入電流</label>
+                    <div class="field-control">
+                        <input class="tool-input" id="current-value" data-current-value type="number" inputmode="decimal" step="any" value="12" autocomplete="off">
+                        <span class="range-unit">mA</span>
+                    </div>
+                </div>
+
+                <div class="result-panel" aria-live="polite">
+                    <p class="result-label">換算結果</p>
+                    <div class="result-value"><span data-result>12</span><span class="result-unit" data-result-unit>mA</span></div>
+                    <p class="result-note" data-result-note>50% 量程</p>
+                    <div class="signal-meter" role="img" aria-label="4 至 20 毫安訊號位置">
+                        <div class="signal-meter-fill" data-meter-fill></div>
+                    </div>
+                    <div class="meter-labels"><span>4 mA<br>0% · 0</span><span>12 mA<br>50% · 13,824</span><span>20 mA<br>100% · 27,648</span></div>
+                </div>
+            </section>
+            <p class="tool-footnote">PLC 原始值：0–27,648 對應 4–20 mA。量程外數值會線性外插。</p>
+        </main>
+    </div>
+    <script src="converter-tools.js"></script>
+</body>
+</html>

@@ -1,0 +1,636 @@
+:root {
+    color-scheme: dark;
+    --tool-bg: #0b1118;
+    --tool-panel: #131e28;
+    --tool-panel-raised: #1b2a36;
+    --tool-border: rgba(165, 190, 202, 0.17);
+    --tool-text: #f3f8fa;
+    --tool-muted: #9eb2bc;
+    --tool-accent: #45e0d0;
+    --tool-highlight: #c3ff65;
+    --tool-danger: #ff9a8d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body.converter-page {
+    height: 100vh;
+    height: 100dvh;
+    margin: 0;
+    padding: clamp(10px, 2.2vh, 22px) 18px;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% -18%, rgba(52, 205, 190, 0.18), transparent 52%),
+        var(--tool-bg);
+    color: var(--tool-text);
+    font-family: Inter, "Segoe UI", "Noto Sans TC", Arial, sans-serif;
+}
+
+.tool-shell {
+    width: min(100%, 680px);
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: clamp(8px, 1.8vh, 18px);
+    color: var(--tool-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.tool-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.tool-brand-mark {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border: 1px solid rgba(69, 224, 208, 0.4);
+    border-radius: 9px;
+    color: var(--tool-accent);
+    font-size: 0.9rem;
+    letter-spacing: 0;
+}
+
+.tool-nav {
+    display: flex;
+    gap: 2px;
+    padding: 4px;
+    border: 1px solid var(--tool-border);
+    border-radius: 999px;
+    background: rgba(19, 30, 40, 0.85);
+}
+
+.tool-nav a {
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    border-radius: 999px;
+    color: var(--tool-muted);
+    font-size: 0.76rem;
+    font-weight: 650;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.tool-nav a[aria-current="page"] {
+    background: var(--tool-panel-raised);
+    color: var(--tool-accent);
+}
+
+.tool-nav a:last-child {
+    padding-right: 11px;
+}
+
+.tool-nav a:focus-visible,
+.mode-button:focus-visible,
+.swap-button:focus-visible,
+.tool-input:focus-visible,
+.tool-select:focus-visible {
+    outline-offset: 2px;
+}
+
+.tool-heading {
+    margin: 0 0 4px;
+    font-size: clamp(1.55rem, 6vw, 2.65rem);
+    font-weight: 780;
+    letter-spacing: -0.055em;
+    line-height: 1.08;
+}
+
+.tool-intro {
+    margin: 0 0 clamp(8px, 1.8vh, 16px);
+    color: var(--tool-muted);
+    font-size: 0.84rem;
+    line-height: 1.45;
+}
+
+main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-card {
+    flex: 1;
+    min-height: 0;
+    padding: clamp(12px, 3vw, 24px);
+    border: 1px solid var(--tool-border);
+    border-radius: 20px;
+    background: linear-gradient(145deg, rgba(25, 39, 51, 0.98), rgba(16, 26, 36, 0.98));
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.field-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--tool-muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.field-control {
+    display: flex;
+    min-height: 50px;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--tool-border);
+    border-radius: 12px;
+    background: var(--tool-bg);
+}
+
+.tool-input,
+.tool-select {
+    min-width: 0;
+    min-height: 48px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--tool-text);
+    font: inherit;
+}
+
+.field-placeholder {
+    display: flex;
+    min-width: 0;
+    min-height: 48px;
+    width: 100%;
+    align-items: center;
+    padding: 0 16px;
+    color: var(--tool-muted);
+    font-size: 1rem;
+}
+
+.tool-input {
+    width: 100%;
+    padding: 0 12px;
+    font-size: 1.08rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.tool-select {
+    width: 100%;
+    padding: 0 26px 0 10px;
+    color: var(--tool-accent);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color-scheme: dark;
+}
+
+.tool-select option,
+.tool-select optgroup {
+    background: var(--tool-panel-raised);
+    color: var(--tool-text);
+}
+
+.unit-control {
+    width: 42%;
+    flex: 0 0 42%;
+    border-left: 1px solid var(--tool-border);
+}
+
+.unit-control .tool-select {
+    height: 48px;
+    cursor: pointer;
+}
+
+.swap-row {
+    display: flex;
+    justify-content: center;
+    margin: 6px 0;
+}
+
+.swap-button {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--tool-border);
+    border-radius: 13px;
+    background: var(--tool-panel-raised);
+    color: var(--tool-accent);
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.swap-button:hover {
+    transform: rotate(180deg);
+    border-color: var(--tool-accent);
+}
+
+.result-panel {
+    margin-top: 12px;
+    padding: 13px 15px;
+    border: 1px solid rgba(69, 224, 208, 0.23);
+    border-radius: 17px;
+    background: linear-gradient(120deg, rgba(69, 224, 208, 0.1), rgba(195, 255, 101, 0.045));
+}
+
+.result-label {
+    margin: 0 0 4px;
+    color: var(--tool-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.result-value {
+    overflow-wrap: anywhere;
+    color: var(--tool-highlight);
+    font-size: clamp(1.9rem, 9vw, 3rem);
+    font-weight: 780;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.05em;
+    line-height: 1.1;
+}
+
+.result-unit {
+    margin-left: 8px;
+    color: var(--tool-accent);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.result-note {
+    min-height: 1.2em;
+    margin: 5px 0 0;
+    color: var(--tool-muted);
+    font-size: 0.82rem;
+}
+
+.tool-footnote {
+    margin: 8px 2px 0;
+    color: var(--tool-muted);
+    font-size: 0.7rem;
+    line-height: 1.35;
+}
+
+.mode-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding: 3px;
+    border: 1px solid var(--tool-border);
+    border-radius: 14px;
+    background: var(--tool-bg);
+}
+
+.mode-button {
+    min-height: 36px;
+    padding: 6px 8px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--tool-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.mode-button[aria-pressed="true"] {
+    background: var(--tool-panel-raised);
+    color: var(--tool-accent);
+}
+
+.range-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.range-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.range-heading .field-label {
+    margin: 0;
+}
+
+.range-unit-control {
+    width: min(42%, 150px);
+    min-height: 36px;
+}
+
+.range-custom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.range-custom-row .field-label {
+    margin: 0;
+}
+
+.range-grid .tool-input {
+    font-size: 0.95rem;
+}
+
+.range-unit {
+    min-width: 44px;
+    padding: 0 8px;
+    color: var(--tool-muted);
+    font-size: 0.87rem;
+    text-align: center;
+}
+
+.range-unit-picker {
+    min-height: 34px;
+    padding: 0 8px;
+    font-size: 0.8rem;
+}
+
+.range-unit-custom {
+    width: 100%;
+    min-height: 34px;
+    padding: 0 8px;
+    font-size: 0.85rem;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.signal-meter {
+    height: 8px;
+    margin-top: 11px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(158, 178, 188, 0.18);
+}
+
+.signal-meter-fill {
+    width: 50%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--tool-accent), var(--tool-highlight));
+    transition: width 180ms ease;
+}
+
+.meter-labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    margin-top: 6px;
+    color: var(--tool-muted);
+    font-size: 0.62rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.meter-labels span {
+    min-width: 0;
+    text-align: center;
+}
+
+.meter-labels span:first-child {
+    text-align: left;
+}
+
+.meter-labels span:last-child {
+    text-align: right;
+}
+
+.is-error {
+    color: var(--tool-danger) !important;
+}
+
+.temperature-fields,
+.temperature-source-fields {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 8px;
+}
+
+.temperature-source-fields {
+    grid-template-columns: 1fr 1fr;
+}
+
+.temperature-fields label:first-child .tool-input {
+    flex: 1;
+}
+
+.temperature-fields label:nth-child(2) .tool-select {
+    width: 100%;
+    flex: 1;
+}
+
+.temperature-unit-picker {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin: -4px 0 8px;
+    color: var(--tool-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.temperature-unit-picker .tool-select {
+    width: auto;
+    min-width: 64px;
+    min-height: 34px;
+    padding: 0 8px;
+    border: 1px solid var(--tool-border);
+    border-radius: 8px;
+    background: var(--tool-bg);
+    font-size: 0.8rem;
+}
+
+.temperature-result-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 11px;
+}
+
+.temperature-output-card {
+    min-width: 0;
+    padding: 9px 6px;
+    border: 1px solid var(--tool-border);
+    border-radius: 12px;
+    background: rgba(11, 17, 24, 0.62);
+    text-align: center;
+}
+
+.temperature-output-label {
+    margin-bottom: 5px;
+    color: var(--tool-muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.temperature-output-value {
+    overflow-wrap: anywhere;
+    color: var(--tool-highlight);
+    font-size: clamp(1rem, 5vw, 1.55rem);
+    font-weight: 760;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.05;
+}
+
+.temperature-output-unit {
+    margin-top: 3px;
+    color: var(--tool-accent);
+    font-size: 0.72rem;
+}
+
+.temperature-forward-note {
+    margin: 8px 0 0;
+    color: var(--tool-muted);
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+@media (max-width: 460px) {
+    body.converter-page {
+        padding: max(8px, 1.2vh) 12px;
+    }
+
+    .tool-topline {
+        margin-bottom: 8px;
+    }
+
+    .tool-brand {
+        gap: 6px;
+        font-size: 0.62rem;
+    }
+
+    .tool-nav a {
+        min-height: 30px;
+        padding: 0 7px;
+        font-size: 0.68rem;
+    }
+
+    .tool-card {
+        padding: 12px 10px;
+    }
+
+    .range-grid .tool-input {
+        padding: 0 8px;
+    }
+
+    .range-unit-control {
+        width: min(46%, 150px);
+    }
+
+    .meter-labels {
+        font-size: 0.56rem;
+    }
+
+    .temperature-result-grid {
+        gap: 5px;
+    }
+
+    .temperature-output-card {
+        padding: 8px 3px;
+    }
+
+    .temperature-output-label {
+        font-size: 0.61rem;
+    }
+
+    .tool-footnote {
+        display: none;
+    }
+}
+
+@media (max-height: 720px) {
+    body.converter-page {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .tool-topline {
+        margin-bottom: 5px;
+    }
+
+    .tool-heading {
+        font-size: 1.45rem;
+    }
+
+    .tool-intro {
+        display: none;
+    }
+
+    .tool-card {
+        padding: 9px;
+    }
+
+    .field-control,
+    .tool-input,
+    .tool-select,
+    .field-placeholder,
+    .range-unit-picker,
+    .range-unit-custom {
+        min-height: 42px;
+    }
+
+    .unit-control .tool-select {
+        height: 40px;
+    }
+
+    .result-panel {
+        margin-top: 8px;
+        padding: 9px 11px;
+    }
+
+    .temperature-result-grid {
+        margin-top: 7px;
+    }
+
+    .temperature-output-card {
+        padding: 6px 3px;
+    }
+
+    .temperature-forward-note {
+        margin-top: 5px;
+    }
+
+    .temperature-unit-picker .tool-select {
+        min-height: 30px;
+    }
+
+    .tool-footnote {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

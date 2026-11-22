@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b1118">
+    <title>壓力單位換算 | 現場工具</title>
+    <link rel="stylesheet" href="converter-tools.css">
+</head>
+<body class="converter-page">
+    <div class="tool-shell" data-tool="pressure">
+        <header class="tool-topline">
+            <div class="tool-brand">
+                <span class="tool-brand-mark" aria-hidden="true">↗</span>
+                <span>現場換算工具</span>
+            </div>
+            <nav class="tool-nav" aria-label="換算工具">
+                <a href="pressure-converter.html" aria-current="page">壓力</a>
+                <a href="4-20ma-converter.html">4–20</a>
+                <a href="temperature-converter.html">溫度</a>
+            </nav>
+        </header>
+
+        <main>
+            <h1 class="tool-heading">壓力單位換算</h1>
+            <p class="tool-intro">即時換算常用工程壓力單位。</p>
+
+            <section class="tool-card" aria-label="壓力換算器">
+                <label class="field-label" for="pressure-value">輸入數值</label>
+                <div class="field-control">
+                    <input class="tool-input" id="pressure-value" data-pressure-value
+                           type="number" inputmode="decimal" step="any" value="1" autocomplete="off">
+                    <div class="unit-control">
+                        <select class="tool-select" data-pressure-from aria-label="原始壓力單位">
+                            <option value="MPa" selected>MPa</option>
+                            <option value="kPa">kPa</option>
+                            <option value="Pa">Pa</option>
+                            <option value="bar">bar</option>
+                            <option value="psi">psi</option>
+                            <option value="kgf/cm²">kgf/cm²</option>
+                            <option value="mmHg">mmHg</option>
+                            <option value="atm">atm</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="swap-row">
+                    <button class="swap-button" type="button" data-swap-units
+                            aria-label="交換原始與目標單位" title="交換單位">↕</button>
+                </div>
+
+                <label class="field-label" for="pressure-to">換算為</label>
+                <div class="field-control">
+                    <div class="field-placeholder" aria-hidden="true">換算結果</div>
+                    <div class="unit-control">
+                        <select class="tool-select" id="pressure-to" data-pressure-to aria-label="目標壓力單位">
+                            <option value="MPa">MPa</option>
+                            <option value="kPa">kPa</option>
+                            <option value="Pa">Pa</option>
+                            <option value="bar" selected>bar</option>
+                            <option value="psi">psi</option>
+                            <option value="kgf/cm²">kgf/cm²</option>
+                            <option value="mmHg">mmHg</option>
+                            <option value="atm">atm</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="result-panel" aria-live="polite">
+                    <p class="result-label">換算結果</p>
+                    <div class="result-value"><span data-result>10</span><span class="result-unit" data-result-unit>bar</span></div>
+                    <p class="result-note" data-result-note>1 MPa = 10 bar</p>
+                </div>
+            </section>
+            <p class="tool-footnote">支援 Pa、kPa、MPa、bar、psi、kgf/cm²、mmHg 與 atm。點擊中間按鈕可快速交換單位。</p>
+        </main>
+    </div>
+    <script src="converter-tools.js"></script>
+</body>
+</html>
