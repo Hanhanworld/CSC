@@ -26,11 +26,6 @@
             <p class="tool-intro">依照訊號量程，快速換算工程值與電流。</p>
 
             <section class="tool-card" aria-label="4–20 mA換算器">
-                <div class="mode-switch" role="group" aria-label="換算方向">
-                    <button class="mode-button" type="button" data-mode-button="process" aria-pressed="true">工程值 → mA</button>
-                    <button class="mode-button" type="button" data-mode-button="current" aria-pressed="false">mA → 工程值</button>
-                </div>
-
                 <div class="range-heading">
                     <span class="field-label">工程量程</span>
                     <div class="field-control range-unit-control">
@@ -77,42 +72,28 @@
                     </label>
                 </div>
 
-                <div data-process-group>
-                    <label class="field-label" for="process-value">工程值<span class="range-unit-label" data-range-unit-label>°C</span></label>
-                    <div class="field-control">
-                        <input class="tool-input" id="process-value" data-process-value type="number" inputmode="decimal" step="any" value="50" autocomplete="off">
-                    </div>
-                    <input class="tool-range" data-engineering-slider type="range" min="0" max="100" step="0.1" value="50" aria-label="拖曳選擇工程值">
-                    <div class="slider-endpoints"><span data-engineering-low-label>0 °C</span><span data-engineering-high-label>100 °C</span></div>
-                </div>
-
-                <div data-current-group hidden>
-                    <label class="field-label" for="current-value">輸入電流</label>
-                    <div class="field-control">
-                        <input class="tool-input" id="current-value" data-current-value type="number" inputmode="decimal" step="any" value="12" autocomplete="off">
-                        <span class="range-unit">mA</span>
-                    </div>
-                </div>
-
                 <div class="result-panel" aria-live="polite">
-                    <p class="result-label">換算結果</p>
-                    <div class="result-value"><span data-result>12</span><span class="result-unit" data-result-unit>mA</span></div>
-                    <p class="result-note" data-result-note>50% 量程</p>
-                    <div class="signal-readouts" data-signal-readouts>
-                        <div class="signal-readout" data-current-readout hidden>
+                    <p class="result-label">即時同步換算</p>
+                    <p class="result-note" data-result-note>4 mA 對應量程下限 · 20 mA 對應量程上限</p>
+                    <div class="signal-readouts">
+                        <label class="signal-readout">
+                            <span class="signal-readout-label">工程值<span class="range-unit-label" data-range-unit-label>°C</span></span>
+                            <span class="signal-readout-value"><input class="signal-input" data-engineering-value type="number" inputmode="decimal" step="any" value="50" aria-label="工程值"><small data-engineering-unit>°C</small></span>
+                        </label>
+                        <label class="signal-readout">
                             <span class="signal-readout-label">4–20 mA</span>
-                            <div class="signal-readout-value"><strong data-current-display>12</strong><small>mA</small></div>
-                        </div>
-                        <div class="signal-readout">
+                            <span class="signal-readout-value"><input class="signal-input" data-current-value type="number" inputmode="decimal" step="any" value="12" aria-label="輸入電流"><small>mA</small></span>
+                        </label>
+                        <label class="signal-readout">
                             <span class="signal-readout-label">量程比例</span>
-                            <div class="signal-readout-value"><strong data-percent-display>50</strong><small>%</small></div>
-                        </div>
-                        <div class="signal-readout">
+                            <span class="signal-readout-value"><input class="signal-input" data-percent-value type="number" inputmode="decimal" step="any" value="50" aria-label="量程比例"><small>%</small></span>
+                        </label>
+                        <label class="signal-readout">
                             <span class="signal-readout-label">PLC 原始值</span>
-                            <div class="signal-readout-value"><strong data-count-display>13,824</strong><small>/ 27,648</small></div>
-                        </div>
+                            <span class="signal-readout-value"><input class="signal-input" data-count-value type="number" inputmode="decimal" step="1" value="13824" aria-label="PLC 原始值"><small>/ 27,648</small></span>
+                        </label>
                     </div>
-                    <input class="tool-range" data-signal-slider type="range" min="0" max="27648" step="1" value="13824" aria-label="拖曳選擇 4–20 mA 與 PLC 原始值">
+                    <input class="tool-range" data-signal-slider type="range" min="0" max="27648" step="1" value="13824" aria-label="拖曳選擇 4–20 mA 對應值">
                     <div class="meter-labels"><span>4 mA<br>0% · 0</span><span>12 mA<br>50% · 13,824</span><span>20 mA<br>100% · 27,648</span></div>
                 </div>
             </section>

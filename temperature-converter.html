@@ -23,14 +23,9 @@
 
         <main>
             <h1 class="tool-heading">溫度／RTD／TC換算</h1>
-            <p class="tool-intro">Pt100／Pt1000 電阻與 K、R 型熱電偶毫伏值互換。</p>
+            <p class="tool-intro">輸入溫度或感測器訊號，各項換算值即時同步更新。</p>
 
             <section class="tool-card" aria-label="溫度與感測器換算器">
-                <div class="mode-switch" role="group" aria-label="換算方向">
-                    <button class="mode-button" type="button" data-temperature-mode="forward" aria-pressed="true">溫度 → 訊號</button>
-                    <button class="mode-button" type="button" data-temperature-mode="reverse" aria-pressed="false">訊號 → 溫度</button>
-                </div>
-
                 <label class="temperature-unit-picker">
                     <span>溫度單位</span>
                     <select class="tool-select" data-temperature-unit aria-label="溫度單位">
@@ -39,76 +34,47 @@
                     </select>
                 </label>
 
-                <div data-temperature-forward>
-                    <div class="temperature-fields">
-                        <label>
-                            <span class="field-label">溫度</span>
-                            <span class="field-control">
-                                <input class="tool-input" data-temperature-value type="number" inputmode="decimal" step="any" value="100" autocomplete="off">
-                                <span class="range-unit" data-temperature-input-unit>°C</span>
-                            </span>
-                        </label>
-                        <label>
-                            <span class="field-label">RTD 型式</span>
-                            <span class="field-control">
-                                <select class="tool-select" data-rtd-type aria-label="RTD型式">
-                                    <option value="100" selected>Pt100</option>
-                                    <option value="1000">Pt1000</option>
-                                </select>
-                            </span>
-                        </label>
-                    </div>
-
-                    <div class="temperature-result-grid" aria-live="polite">
-                        <div class="temperature-output-card">
-                            <div class="temperature-output-label" data-pt-label>Pt100</div>
-                            <div class="temperature-output-value" data-pt-output>138.5055</div>
-                            <div class="temperature-output-unit">Ω</div>
-                        </div>
-                        <div class="temperature-output-card">
-                            <div class="temperature-output-label">Type K</div>
-                            <div class="temperature-output-value" data-k-output>4.0962</div>
-                            <div class="temperature-output-unit">mV</div>
-                        </div>
-                        <div class="temperature-output-card">
-                            <div class="temperature-output-label">Type R</div>
-                            <div class="temperature-output-value" data-r-output>0.6474</div>
-                            <div class="temperature-output-unit">mV</div>
-                        </div>
-                    </div>
-                    <p class="temperature-forward-note" data-forward-note>輸入 100 °C</p>
+                <div class="temperature-fields">
+                    <label>
+                        <span class="field-label">溫度</span>
+                        <span class="field-control">
+                            <input class="tool-input" data-temperature-value type="number" inputmode="decimal" step="any" value="100" autocomplete="off">
+                            <span class="range-unit" data-temperature-input-unit>°C</span>
+                        </span>
+                    </label>
                 </div>
 
-                <div data-temperature-reverse hidden>
-                    <div class="temperature-source-fields">
-                        <label>
-                            <span class="field-label">感測器</span>
-                            <span class="field-control">
-                                <select class="tool-select" data-sensor-type aria-label="感測器型式">
-                                    <option value="pt100" selected>Pt100</option>
-                                    <option value="pt1000">Pt1000</option>
-                                    <option value="k">TC Type K</option>
-                                    <option value="r">TC Type R</option>
-                                </select>
-                            </span>
-                        </label>
-                        <label>
-                            <span class="field-label">輸入訊號</span>
-                            <span class="field-control">
-                                <input class="tool-input" data-sensor-value type="number" inputmode="decimal" step="any" value="138.5055" autocomplete="off">
-                                <span class="range-unit" data-sensor-unit>Ω</span>
-                            </span>
-                        </label>
-                    </div>
-
-                    <div class="result-panel" aria-live="polite">
-                        <p class="result-label">換算溫度</p>
-                        <div class="result-value"><span data-temperature-result>100</span><span class="result-unit" data-temperature-result-unit>°C</span></div>
-                        <p class="result-note" data-temperature-result-note>Pt100 換算 · 100 °C</p>
-                    </div>
+                <div class="temperature-result-grid">
+                    <label class="temperature-output-card">
+                        <span class="temperature-output-label">Pt100</span>
+                        <span class="temperature-output-input">
+                            <input class="temperature-signal-input" data-pt-value type="number" inputmode="decimal" step="any" value="138.5055" aria-label="Pt100電阻">
+                            <small>Ω</small>
+                        </span>
+                        <small class="temperature-card-note" data-pt-note></small>
+                    </label>
+                    <label class="temperature-output-card">
+                        <span class="temperature-output-label">Type K</span>
+                        <span class="temperature-output-input">
+                            <input class="temperature-signal-input" data-k-value type="number" inputmode="decimal" step="any" value="4.0962" aria-label="Type K熱電偶毫伏值">
+                            <small>mV</small>
+                        </span>
+                        <small class="temperature-card-note" data-k-note></small>
+                    </label>
+                    <label class="temperature-output-card">
+                        <span class="temperature-output-label">Type R</span>
+                        <span class="temperature-output-input">
+                            <input class="temperature-signal-input" data-r-value type="number" inputmode="decimal" step="any" value="0.6474" aria-label="Type R熱電偶毫伏值">
+                            <small>mV</small>
+                        </span>
+                        <small class="temperature-card-note" data-r-note></small>
+                    </label>
                 </div>
+                <input class="tool-range" data-temperature-slider type="range" min="-270" max="1768.1" step="0.1" value="100" aria-label="拖曳選擇溫度">
+                <div class="slider-endpoints"><span data-temperature-low-label>-270 °C</span><span data-temperature-high-label>1,768.1 °C</span></div>
+                <p class="temperature-forward-note" data-forward-note>輸入 100 °C</p>
             </section>
-            <p class="tool-footnote">Pt100／Pt1000：IEC 60751；熱電偶 K／R：NIST ITS-90，參考端 0 °C。超出各型式標準量程時會提示。</p>
+            <p class="tool-footnote">Pt100：IEC 60751；熱電偶 K／R：NIST ITS-90，參考端 0 °C。超出各型式標準量程時會提示。</p>
         </main>
     </div>
     <script src="converter-tools.js"></script>

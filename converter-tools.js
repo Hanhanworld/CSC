@@ -75,24 +75,13 @@
         var customUnit = root.querySelector("[data-range-unit-custom]");
         var customUnitRow = root.querySelector("[data-custom-unit-row]");
         var unitLabels = Array.prototype.slice.call(root.querySelectorAll("[data-range-unit-label]"));
-        var processGroup = root.querySelector("[data-process-group]");
-        var currentGroup = root.querySelector("[data-current-group]");
-        var processInput = root.querySelector("[data-process-value]");
+        var engineeringInput = root.querySelector("[data-engineering-value]");
         var currentInput = root.querySelector("[data-current-value]");
-        var output = root.querySelector("[data-result]");
-        var resultUnit = root.querySelector("[data-result-unit]");
+        var percentInput = root.querySelector("[data-percent-value]");
+        var countInput = root.querySelector("[data-count-value]");
         var note = root.querySelector("[data-result-note]");
-        var engineeringSlider = root.querySelector("[data-engineering-slider]");
         var signalSlider = root.querySelector("[data-signal-slider]");
-        var engineeringLowLabel = root.querySelector("[data-engineering-low-label]");
-        var engineeringHighLabel = root.querySelector("[data-engineering-high-label]");
-        var signalReadouts = root.querySelector("[data-signal-readouts]");
-        var currentReadout = root.querySelector("[data-current-readout]");
-        var currentDisplay = root.querySelector("[data-current-display]");
-        var percentDisplay = root.querySelector("[data-percent-display]");
-        var countDisplay = root.querySelector("[data-count-display]");
-        var modeButtons = Array.prototype.slice.call(root.querySelectorAll("[data-mode-button]"));
-        var mode = "process";
+        var engineeringUnits = Array.prototype.slice.call(root.querySelectorAll("[data-engineering-unit]"));
 
         function getUnit() {
             return unitSelect.value === "custom"
@@ -100,131 +89,99 @@
                 : unitSelect.value;
         }
 
-        function setMode(nextMode) {
-            mode = nextMode;
-            var processMode = mode === "process";
-            processGroup.hidden = !processMode;
-            currentGroup.hidden = processMode;
-            currentReadout.hidden = processMode;
-            signalReadouts.classList.toggle("has-current", !processMode);
-            modeButtons.forEach(function (button) {
-                button.setAttribute("aria-pressed", String(button.dataset.modeButton === mode));
-            });
-            update();
-        }
-
-        function update() {
+        function update(source) {
             var lower = readNumber(low);
             var upper = readNumber(high);
-            var value = readNumber(mode === "process" ? processInput : currentInput);
             var displayUnit = getUnit();
             var isCustom = unitSelect.value === "custom";
             customUnitRow.hidden = !isCustom;
             unitLabels.forEach(function (label) {
                 label.textContent = displayUnit;
             });
-            var invalid = !Number.isFinite(lower) || !Number.isFinite(upper) ||
-                !Number.isFinite(value) || upper <= lower;
-            var finiteRange = Number.isFinite(lower) && Number.isFinite(upper);
-            engineeringSlider.disabled = !finiteRange || upper <= lower;
-            signalSlider.disabled = !finiteRange || upper <= lower;
-            engineeringSlider.min = finiteRange ? String(lower) : "0";
-            engineeringSlider.max = finiteRange ? String(upper) : "100";
-            engineeringSlider.step = finiteRange && upper > lower
-                ? String((upper - lower) / 1000)
-                : "1";
-            engineeringLowLabel.textContent = finiteRange
-                ? formatNumber(lower) + " " + displayUnit
-                : "—";
-            engineeringHighLabel.textContent = finiteRange
-                ? formatNumber(upper) + " " + displayUnit
-                : "—";
+            engineeringUnits.forEach(function (label) {
+                label.textContent = displayUnit;
+            });
 
-            resultUnit.textContent = mode === "process" ? "mA" : displayUnit;
-            output.classList.toggle("is-error", invalid);
-
-            if (invalid) {
-                output.textContent = "—";
-                currentDisplay.textContent = "—";
-                percentDisplay.textContent = "—";
-                countDisplay.textContent = "—";
-                note.textContent = upper <= lower && Number.isFinite(lower) && Number.isFinite(upper)
+            var validRange = Number.isFinite(lower) && Number.isFinite(upper) && upper > lower;
+            signalSlider.disabled = !validRange;
+            if (!validRange) {
+                note.textContent = Number.isFinite(lower) && Number.isFinite(upper)
                     ? "量程上限必須大於下限"
-                    : "請確認輸入的數值";
+                    : "請確認輸入的量程數值";
                 note.classList.add("is-error");
                 signalSlider.style.setProperty("--range-progress", "0%");
-                engineeringSlider.style.setProperty("--range-progress", "0%");
                 return;
             }
 
-            note.classList.remove("is-error");
-            var percent;
-            var result;
-            var outOfRange;
-            var signal;
-
-            if (mode === "process") {
-                percent = (value - lower) / (upper - lower) * 100;
-                signal = 4 + percent / 100 * 16;
-                result = signal;
-                outOfRange = percent < 0 || percent > 100;
-            } else {
-                signal = value;
-                percent = (value - 4) / 16 * 100;
-                result = lower + percent / 100 * (upper - lower);
-                outOfRange = value < 4 || value > 20;
+            var sourceInput = source === "current" ? currentInput :
+                source === "percent" ? percentInput :
+                    source === "count" ? countInput : engineeringInput;
+            var enteredValue = readNumber(sourceInput);
+            if (!Number.isFinite(enteredValue)) {
+                note.textContent = "請輸入有效的數值";
+                note.classList.add("is-error");
+                return;
             }
 
-            output.textContent = formatNumber(result);
-            currentDisplay.textContent = formatNumber(Number(signal.toFixed(3)));
-            percentDisplay.textContent = formatNumber(Number(percent.toFixed(2)));
-            countDisplay.textContent = formatNumber(Math.round(percent * 276.48));
+            var percent;
+            if (source === "current") {
+                percent = (enteredValue - 4) / 16 * 100;
+            } else if (source === "percent") {
+                percent = enteredValue;
+            } else if (source === "count") {
+                percent = enteredValue / 27648 * 100;
+            } else {
+                percent = (enteredValue - lower) / (upper - lower) * 100;
+            }
+
+            var engineeringValue = lower + percent / 100 * (upper - lower);
+            var currentValue = 4 + percent / 100 * 16;
+            var rawCount = Math.round(percent * 276.48);
+            engineeringInput.value = String(Number(engineeringValue.toPrecision(12)));
+            currentInput.value = String(Number(currentValue.toPrecision(12)));
+            percentInput.value = String(Number(percent.toPrecision(12)));
+            countInput.value = String(rawCount);
+
+            var outOfRange = percent < 0 || percent > 100;
             note.textContent = outOfRange
                 ? "超出 4–20 mA 對應量程，顯示線性外插值"
                 : "4 mA 對應量程下限 · 20 mA 對應量程上限";
+            note.classList.toggle("is-error", outOfRange);
 
             var clampedPercent = Math.max(0, Math.min(100, percent));
-            var signalProgress = clampedPercent + "%";
             signalSlider.value = String(Math.round(clampedPercent * 276.48));
-            signalSlider.style.setProperty("--range-progress", signalProgress);
-
-            var engineeringValue = mode === "process" ? value : result;
-            var clampedEngineering = Math.max(lower, Math.min(upper, engineeringValue));
-            engineeringSlider.value = String(clampedEngineering);
-            engineeringSlider.style.setProperty(
-                "--range-progress",
-                ((clampedEngineering - lower) / (upper - lower) * 100) + "%"
-            );
+            signalSlider.style.setProperty("--range-progress", clampedPercent + "%");
         }
 
-        modeButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                setMode(button.dataset.modeButton);
+        signalSlider.addEventListener("input", function () {
+            countInput.value = signalSlider.value;
+            update("count");
+        });
+
+        [
+            [engineeringInput, "engineering"],
+            [currentInput, "current"],
+            [percentInput, "percent"],
+            [countInput, "count"]
+        ].forEach(function (field) {
+            field[0].addEventListener("input", function () {
+                update(field[1]);
+            });
+            field[0].addEventListener("change", function () {
+                update(field[1]);
             });
         });
 
-        engineeringSlider.addEventListener("input", function () {
-            processInput.value = engineeringSlider.value;
-            update();
+        [low, high, unitSelect, customUnit].forEach(function (element) {
+            element.addEventListener("input", function () {
+                update("engineering");
+            });
+            element.addEventListener("change", function () {
+                update("engineering");
+            });
         });
 
-        signalSlider.addEventListener("input", function () {
-            var count = Number(signalSlider.value);
-            if (mode === "process") {
-                processInput.value = String(readNumber(low) +
-                    count / 27648 * (readNumber(high) - readNumber(low)));
-            } else {
-                currentInput.value = String(4 + count / 27648 * 16);
-            }
-            update();
-        });
-
-        [low, high, unitSelect, customUnit, processInput, currentInput].forEach(function (element) {
-            element.addEventListener("input", update);
-            element.addEventListener("change", update);
-        });
-
-        setMode(mode);
+        update("engineering");
     }
 
     var typeKNegative = [
@@ -332,10 +289,9 @@
     function temperatureFromSignal(sensor, reading) {
         var limits;
         var converter;
-        if (sensor === "pt100" || sensor === "pt1000") {
-            var baseResistance = sensor === "pt1000" ? 1000 : 100;
+        if (sensor === "pt100") {
             converter = function (temperature) {
-                return rtdResistance(temperature, baseResistance);
+                return rtdResistance(temperature, 100);
             };
             limits = [converter(-200), converter(850), -200, 850];
         } else if (sensor === "k") {
@@ -347,7 +303,7 @@
         }
 
         // NIST's reference tables round thermocouple EMF to 0.001 mV.
-        var tolerance = sensor === "pt100" || sensor === "pt1000" ? 0 : 0.0005;
+        var tolerance = sensor === "pt100" ? 0 : 0.0005;
         if (reading < limits[0] - tolerance || reading > limits[1] + tolerance) return NaN;
         reading = Math.max(limits[0], Math.min(limits[1], reading));
         return invertMonotonic(converter, reading, limits[2], limits[3]);
@@ -357,25 +313,20 @@
         var root = document.querySelector('[data-tool="temperature"]');
         if (!root) return;
 
-        var modeButtons = Array.prototype.slice.call(root.querySelectorAll("[data-temperature-mode]"));
-        var forwardGroup = root.querySelector("[data-temperature-forward]");
-        var reverseGroup = root.querySelector("[data-temperature-reverse]");
         var temperatureInput = root.querySelector("[data-temperature-value]");
         var temperatureUnit = root.querySelector("[data-temperature-unit]");
         var temperatureInputUnit = root.querySelector("[data-temperature-input-unit]");
-        var rtdType = root.querySelector("[data-rtd-type]");
-        var sensorType = root.querySelector("[data-sensor-type]");
-        var sensorInput = root.querySelector("[data-sensor-value]");
-        var sensorUnit = root.querySelector("[data-sensor-unit]");
-        var reverseResult = root.querySelector("[data-temperature-result]");
-        var reverseResultUnit = root.querySelector("[data-temperature-result-unit]");
-        var reverseNote = root.querySelector("[data-temperature-result-note]");
-        var rtdOutput = root.querySelector("[data-pt-output]");
-        var rtdOutputLabel = root.querySelector("[data-pt-label]");
-        var kOutput = root.querySelector("[data-k-output]");
-        var rOutput = root.querySelector("[data-r-output]");
+        var ptInput = root.querySelector("[data-pt-value]");
+        var kInput = root.querySelector("[data-k-value]");
+        var rInput = root.querySelector("[data-r-value]");
         var forwardNote = root.querySelector("[data-forward-note]");
-        var mode = "forward";
+        var ptNote = root.querySelector("[data-pt-note]");
+        var kNote = root.querySelector("[data-k-note]");
+        var rNote = root.querySelector("[data-r-note]");
+        var temperatureSlider = root.querySelector("[data-temperature-slider]");
+        var sliderLowLabel = root.querySelector("[data-temperature-low-label]");
+        var sliderHighLabel = root.querySelector("[data-temperature-high-label]");
+        var currentCelsius = getCelsius(readNumber(temperatureInput));
 
         function getCelsius(value) {
             return temperatureUnit.value === "°F" ? (value - 32) * 5 / 9 : value;
@@ -385,94 +336,119 @@
             return temperatureUnit.value === "°F" ? celsius * 9 / 5 + 32 : celsius;
         }
 
-        function getSensorLabel() {
-            return sensorType.options[sensorType.selectedIndex].text;
-        }
-
-        function setMode(nextMode) {
-            mode = nextMode;
-            forwardGroup.hidden = mode !== "forward";
-            reverseGroup.hidden = mode !== "reverse";
-            modeButtons.forEach(function (button) {
-                button.setAttribute("aria-pressed", String(button.dataset.temperatureMode === mode));
-            });
-            update();
-        }
-
-        function updateForward() {
-            var entered = readNumber(temperatureInput);
-            var celsius = Number.isFinite(entered) ? getCelsius(entered) : NaN;
-            var r0 = Number(rtdType.value);
-            temperatureInputUnit.textContent = temperatureUnit.value;
-            rtdOutputLabel.textContent = rtdType.options[rtdType.selectedIndex].text;
-
-            if (!Number.isFinite(celsius)) {
-                rtdOutput.textContent = "—";
-                kOutput.textContent = "—";
-                rOutput.textContent = "—";
-                forwardNote.textContent = "請輸入有效溫度";
-                return;
+        function setSensorValue(input, note, value) {
+            if (Number.isFinite(value)) {
+                input.value = String(Number(value.toFixed(4)));
+                input.classList.remove("is-error");
+                note.textContent = "";
+                note.classList.remove("is-error");
+                return false;
             }
 
-            var resistance = rtdResistance(celsius, r0);
+            input.value = "";
+            input.classList.add("is-error");
+            note.textContent = "超出標準量程";
+            note.classList.add("is-error");
+            return true;
+        }
+
+        function renderTemperature(celsius) {
+            if (Math.abs(celsius) < 1e-10) celsius = 0;
+            currentCelsius = celsius;
+            var entered = formatTemperature(celsius);
+            var minimum = formatTemperature(-270);
+            var maximum = formatTemperature(1768.1);
+            var sliderValue = Math.max(minimum, Math.min(maximum, entered));
+            temperatureInputUnit.textContent = temperatureUnit.value;
+            temperatureInput.value = String(Number(entered.toPrecision(12)));
+
+            var resistance = rtdResistance(celsius, 100);
             var kMillivolts = typeKMillivolts(celsius);
             var rMillivolts = typeRMillivolts(celsius);
-            rtdOutput.textContent = Number.isFinite(resistance)
-                ? formatNumber(Number(resistance.toFixed(4))) : "超量程";
-            kOutput.textContent = Number.isFinite(kMillivolts)
-                ? formatNumber(Number(kMillivolts.toFixed(4))) : "超量程";
-            rOutput.textContent = Number.isFinite(rMillivolts)
-                ? formatNumber(Number(rMillivolts.toFixed(4))) : "超量程";
-            forwardNote.textContent = "輸入 " + formatNumber(entered) + " °" +
-                temperatureUnit.value.replace("°", "") + "（" +
-                formatNumber(Number(celsius.toFixed(3))) + " °C）";
+            var ptOutOfRange = setSensorValue(ptInput, ptNote, resistance);
+            var kOutOfRange = setSensorValue(kInput, kNote, kMillivolts);
+            var rOutOfRange = setSensorValue(rInput, rNote, rMillivolts);
+            var hasOutOfRange = ptOutOfRange || kOutOfRange || rOutOfRange;
+
+            temperatureSlider.min = String(minimum);
+            temperatureSlider.max = String(maximum);
+            temperatureSlider.value = String(sliderValue);
+            temperatureSlider.style.setProperty(
+                "--range-progress",
+                ((sliderValue - minimum) / (maximum - minimum) * 100) + "%"
+            );
+            sliderLowLabel.textContent = formatNumber(Number(minimum.toFixed(1))) +
+                " " + temperatureUnit.value;
+            sliderHighLabel.textContent = formatNumber(Number(maximum.toFixed(1))) +
+                " " + temperatureUnit.value;
+
+            forwardNote.textContent = "輸入 " + formatNumber(Number(entered.toFixed(3))) +
+                " " + temperatureUnit.value + "（" +
+                formatNumber(Number(celsius.toFixed(3))) + " °C）" +
+                (hasOutOfRange ? " · 部分感測器超出標準量程" : "");
+            forwardNote.classList.remove("is-error");
         }
 
-        function updateReverse() {
-            var reading = readNumber(sensorInput);
-            var label = getSensorLabel();
-            sensorUnit.textContent = sensorType.value.indexOf("pt") === 0 ? "Ω" : "mV";
-            reverseResultUnit.textContent = temperatureUnit.value;
-
+        function updateFromSignal(input, sensor) {
+            var reading = readNumber(input);
             if (!Number.isFinite(reading)) {
-                reverseResult.textContent = "—";
-                reverseNote.textContent = "請輸入有效的感測器數值";
-                reverseNote.classList.add("is-error");
+                forwardNote.textContent = "請輸入有效的感測器數值";
+                forwardNote.classList.add("is-error");
+                input.classList.add("is-error");
                 return;
             }
 
-            var celsius = temperatureFromSignal(sensorType.value, reading);
+            var celsius = temperatureFromSignal(sensor, reading);
             if (!Number.isFinite(celsius)) {
-                reverseResult.textContent = "—";
-                reverseNote.textContent = label + " 數值超出標準量程";
-                reverseNote.classList.add("is-error");
+                forwardNote.textContent = "輸入訊號超出標準量程";
+                forwardNote.classList.add("is-error");
+                input.classList.add("is-error");
                 return;
             }
 
-            var result = formatTemperature(celsius);
-            reverseResult.textContent = formatNumber(Number(result.toFixed(3)));
-            reverseNote.textContent = label + " 換算 · " +
-                formatNumber(Number(celsius.toFixed(3))) + " °C";
-            reverseNote.classList.remove("is-error");
+            input.classList.remove("is-error");
+            renderTemperature(celsius);
         }
 
-        function update() {
-            if (mode === "forward") updateForward();
-            else updateReverse();
-        }
-
-        modeButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                setMode(button.dataset.temperatureMode);
-            });
+        temperatureInput.addEventListener("input", function () {
+            var entered = readNumber(temperatureInput);
+            if (!Number.isFinite(entered)) {
+                forwardNote.textContent = "請輸入有效溫度";
+                forwardNote.classList.add("is-error");
+                temperatureInput.classList.add("is-error");
+                return;
+            }
+            temperatureInput.classList.remove("is-error");
+            renderTemperature(getCelsius(entered));
+        });
+        temperatureInput.addEventListener("change", function () {
+            var entered = readNumber(temperatureInput);
+            if (Number.isFinite(entered)) renderTemperature(getCelsius(entered));
         });
 
-        [temperatureInput, temperatureUnit, rtdType, sensorType, sensorInput].forEach(function (element) {
-            element.addEventListener("input", update);
-            element.addEventListener("change", update);
+        temperatureSlider.addEventListener("input", function () {
+            temperatureInput.value = temperatureSlider.value;
+            var entered = readNumber(temperatureInput);
+            renderTemperature(getCelsius(entered));
         });
 
-        setMode(mode);
+        temperatureUnit.addEventListener("change", function () {
+            renderTemperature(currentCelsius);
+        });
+
+        [
+            [ptInput, "pt100"],
+            [kInput, "k"],
+            [rInput, "r"]
+        ].forEach(function (field) {
+            var update = function () {
+                updateFromSignal(field[0], field[1]);
+            };
+            field[0].addEventListener("input", update);
+            field[0].addEventListener("change", update);
+        });
+
+        renderTemperature(currentCelsius);
     }
 
     initPressureTool();

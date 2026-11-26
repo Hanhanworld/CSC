@@ -108,6 +108,7 @@ body.converter-page {
 .mode-button:focus-visible,
 .swap-button:focus-visible,
 .tool-input:focus-visible,
+.signal-input:focus-visible,
 .tool-select:focus-visible,
 .tool-range:focus-visible {
     outline: 2px solid var(--tool-highlight);
@@ -483,10 +484,6 @@ main {
     margin: 8px 0 5px;
 }
 
-.signal-readouts.has-current {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .signal-readout {
     min-width: 0;
     padding: 7px 8px;
@@ -512,11 +509,23 @@ main {
     line-height: 1;
 }
 
-.signal-readout-value strong {
+.signal-input {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
     color: var(--tool-highlight);
+    font: inherit;
     font-size: clamp(1rem, 5vw, 1.45rem);
     font-weight: 780;
+    font-variant-numeric: tabular-nums;
     letter-spacing: -0.035em;
+}
+
+.signal-input:focus-visible {
+    border-radius: 3px;
 }
 
 .signal-readout-value small {
@@ -552,24 +561,54 @@ main {
     color: var(--tool-danger) !important;
 }
 
-.temperature-fields,
-.temperature-source-fields {
+.temperature-fields {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1fr;
     gap: 8px;
 }
 
-.temperature-source-fields {
-    grid-template-columns: 1fr 1fr;
+.temperature-output-input {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    min-width: 0;
 }
 
-.temperature-fields label:first-child .tool-input {
-    flex: 1;
-}
-
-.temperature-fields label:nth-child(2) .tool-select {
+.temperature-signal-input {
     width: 100%;
-    flex: 1;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--tool-highlight);
+    font: inherit;
+    font-size: clamp(0.95rem, 4.5vw, 1.4rem);
+    font-weight: 760;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+.temperature-signal-input:focus-visible {
+    border-radius: 3px;
+    outline: 2px solid var(--tool-highlight);
+    outline-offset: 2px;
+}
+
+.temperature-output-input small {
+    flex: 0 0 auto;
+    color: var(--tool-accent);
+    font-size: 0.66rem;
+    font-weight: 700;
+}
+
+.temperature-card-note {
+    display: block;
+    min-height: 1em;
+    margin-top: 3px;
+    color: var(--tool-muted);
+    font-size: 0.56rem;
+    line-height: 1.2;
 }
 
 .temperature-unit-picker {
@@ -611,26 +650,12 @@ main {
 }
 
 .temperature-output-label {
+    display: block;
     margin-bottom: 5px;
     color: var(--tool-muted);
     font-size: 0.68rem;
     font-weight: 700;
     white-space: nowrap;
-}
-
-.temperature-output-value {
-    overflow-wrap: anywhere;
-    color: var(--tool-highlight);
-    font-size: clamp(1rem, 5vw, 1.55rem);
-    font-weight: 760;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.05;
-}
-
-.temperature-output-unit {
-    margin-top: 3px;
-    color: var(--tool-accent);
-    font-size: 0.72rem;
 }
 
 .temperature-forward-note {
