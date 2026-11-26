@@ -10,6 +10,27 @@ function setSidebarState(isOpen) {
     sidebarOverlay.setAttribute('aria-hidden', String(!isOpen));
 }
 
+const layoutButtons = Array.from(document.querySelectorAll('[data-site-layout]'));
+
+function setSiteLayout(layout) {
+    const isRedesign = layout === 'redesign';
+    document.body.classList.toggle('layout-redesign', isRedesign);
+    layoutButtons.forEach(function(button) {
+        button.setAttribute('aria-pressed', String(button.dataset.siteLayout === layout));
+    });
+    setSidebarState(isRedesign && window.innerWidth > 768);
+}
+
+layoutButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+        setSiteLayout(button.dataset.siteLayout);
+    });
+});
+
+window.addEventListener('resize', function() {
+    setSidebarState(sidebar.classList.contains('show'));
+});
+
 document.querySelector('.sidebar-toggle').addEventListener('click', function() {
     const isOpen = !sidebar.classList.contains('show');
     setSidebarState(isOpen);
