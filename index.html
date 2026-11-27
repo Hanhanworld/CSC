@@ -8,24 +8,40 @@
     <link rel="stylesheet" href="scrollbar-styles.css">
     <link rel="stylesheet" href="dark-theme.css">
     <link rel="stylesheet" href="site-layout.css">
+    <link rel="stylesheet" href="redesign.css">
+    <script src="redesign.js"></script>
 </head>
 <body>
     <header class="site-header">
-        <a class="site-brand" href="index.html" aria-label="檢修紀錄簿首頁">
+        <button type="button" class="csc-desktop-nav-toggle csc-only-inline" id="cscDesktopNavToggle" aria-label="展開或收合側邊導覽列" title="展開／收合左側選單">☰</button>
+        <a class="site-brand" href="welcome.html" target="contentFrame" aria-label="檢修紀錄簿首頁">
             <span class="site-brand-mark" aria-hidden="true">CSC</span>
             <span class="site-brand-copy">
                 <strong>檢修知識庫</strong>
                 <small>設備操作與維護手冊</small>
             </span>
         </a>
-        <div class="layout-switcher" role="group" aria-label="切換網站版型">
-            <button type="button" data-site-layout="original" aria-pressed="true" title="原版：導覽收合，內容視窗較寬">原版</button>
-            <button type="button" data-site-layout="redesign" aria-pressed="false" title="新版：導覽常駐，分類更容易瀏覽">新版</button>
+        <div class="csc-header-meta csc-only-flex">
+            <span class="csc-header-divider" aria-hidden="true"></span>
+            <div class="csc-breadcrumb" title="目前檢視頁面">
+                <span class="csc-breadcrumb-dot" aria-hidden="true"></span>
+                <span class="csc-breadcrumb-text" id="cscCurrentPageTitle">檢修知識庫首頁</span>
+            </div>
+            <a class="csc-open-tab-btn" id="cscOpenTabLink" href="welcome.html" target="_blank" rel="noopener" title="於新分頁開啟目前頁面">新分頁 ↗</a>
+        </div>
+        <div class="layout-switcher" role="group" aria-label="切換原版與新版查看差異">
+            <button type="button" data-site-layout="original" aria-pressed="false" title="原版：保留原本所有網頁樣式與操作方式">原版</button>
+            <button type="button" data-site-layout="redesign" aria-pressed="true" title="新版：全面優化的導覽、搜尋、圖面放大與行動版體驗">新版</button>
         </div>
     </header>
     <button class="sidebar-toggle" aria-label="Toggle sidebar">&#9776;</button>
     <div class="sidebar-overlay" aria-hidden="true"></div>
     <div class="sidebar">
+        <div class="csc-sidebar-search-wrap csc-only">
+            <span class="csc-sidebar-search-icon" aria-hidden="true">⌕</span>
+            <input type="search" class="csc-sidebar-search" id="cscSidebarSearch" placeholder="篩選導覽頁面…" autocomplete="off" aria-label="篩選導覽頁面">
+            <span class="csc-sidebar-search-kbd" aria-hidden="true">/</span>
+        </div>
         <div class="sidebar-content">
             <h2 class="collapsible">修一</h2>
             <ul class="collapsible-content">
